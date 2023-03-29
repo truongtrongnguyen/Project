@@ -1,0 +1,242 @@
+﻿@using App.Models
+@using BangHang.Product.Model
+@model ProductModel
+
+<div class="col-md-9">
+    <div class="card">
+        <div class="card-header p-2">
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Thông tin chung</a></li>
+                <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Hình ảnh</a></li>
+                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Seo</a></li>
+            </ul>
+        </div><!-- /.card-header -->
+        <form asp-action="Create" enctype="multipart/form-data">
+                    <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="activity">
+                    <!-- Post -->
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="CategoryIDs" class="control-label"></label>
+                            <select asp-for="CategoryIDs" asp-items="ViewBag.CategoryPro" class="w-100" multiple="multiple"></select>
+                            <span asp-validation-for="CategoryIDs" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Title" class="control-label"></label>
+                            <input asp-for="@Model.Title" class="form-control" />
+                            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Slug" class="control-label"></label>
+                            <input asp-for="@Model.Slug" class="form-control" />
+                            <span asp-validation-for="@Model.Slug" class="text-danger"></span>
+                        </div>
+
+                        <div class="row mt-4 mb-4">
+                            <div class="form-group form-check col-2 ">
+                                <label class="form-check-label"></label>
+                                <input asp-for="IsActive" class="form-check-input">@Html.DisplayNameFor(model => model.IsActive)
+                            </div>
+
+                            <div class="form-group form-check col-2">
+                                <label class="form-check-label"></label>
+                                <input asp-for="IsSale" class="form-check-input">@Html.DisplayNameFor(model => model.IsSale)
+                            </div>
+
+                            <div class="form-group form-check col-4">
+                                <label class="form-check-label"></label>
+                                <input asp-for="IsHome" class="form-check-input">@Html.DisplayNameFor(model => model.IsHome)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-4">
+                            <label asp-for="@Model.Price" class="control-label"></label>
+                            <input asp-for="@Model.Price" class="form-control" />
+                            <span asp-validation-for="@Model.Price" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-4">
+                            <label asp-for="@Model.PriceSale" class="control-label"></label>
+                            <input asp-for="@Model.PriceSale" class="form-control" />
+                            <span asp-validation-for="@Model.PriceSale" class="text-danger"></span>
+                        </div>
+                         <div class="form-group col-2">
+                            <label asp-for="@Model.Quantity" class="control-label"></label>
+                            <input asp-for="@Model.Quantity" class="form-control" />
+                            <span asp-validation-for="@Model.Quantity" class="text-danger"></span>
+                        </div>
+
+
+                        </div>
+                        <div class="row">
+                        <div class="form-group col-4">
+                            <label asp-for="@Model.Color" class="control-label"></label>
+                            <input asp-for="@Model.Color" class="form-control" />
+                            <span asp-validation-for="@Model.Color" class="text-danger"></span>
+                        </div>
+                         <div class="form-group col-4">
+                            <label asp-for="@Model.TypeProduct" class="control-label"></label>
+                            <input asp-for="@Model.TypeProduct" class="form-control" />
+                            <span asp-validation-for="@Model.TypeProduct" class="text-danger"></span>
+                        </div>
+                             <div class="form-group col-2">
+                            <label asp-for="@Model.Sold" class="control-label"></label>
+                            <input asp-for="@Model.Sold" class="form-control" />
+                            <span asp-validation-for="@Model.Sold" class="text-danger"></span>
+                        </div>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label asp-for="@Model.DesCriptions" class="control-label"></label>
+                            <input asp-for="@Model.DesCriptions" class="form-control" />
+                            <span asp-validation-for="@Model.DesCriptions" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="@Model.Contents" class="control-label"></label>
+                            <textarea asp-for="@Model.Contents" id="Contents" rows="5" class="form-control"></textarea>
+                            <span asp-validation-for="@Model.Contents" class="text-danger"></span>
+                        </div>
+                    <!-- /.post -->
+                </div>
+
+
+                <!-- /.tab-pane -->
+                <div class="tab-pane" id="timeline">
+                    <!-- The timeline -->
+                    <div class="col-md-12">
+                        <label asp-for="ProductFiles" class="control-label"></label>
+                        <style>
+                            #preview img {
+                                max-height: 150px;
+                                margin: 20px;
+
+                            }
+                        </style>
+
+                        <input asp-for="ProductFiles" id="files" type="file" accept="image/*" multiple>
+                        <div id="preview"></div>
+                    </div>
+                </div>
+                <!-- /.tab-pane -->
+
+
+
+                <div class="tab-pane" id="settings">
+
+                        <div class="form-group row">
+                            <label asp-for="SeoTitle" class="control-label col-3">SeoTitle</label>
+                            <input asp-for="SeoTitle" type="text" class="form-control col-9" placeholder="SeoTitle">
+                            <span asp-validation-for="SeoTitle" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group row">
+                            <label asp-for="SeoKeyword" class="control-label col-3">SeoKeyword</label>
+                            <input asp-for="SeoKeyword" type="text" class="form-control col-9" placeholder="SeoKeyword">
+                            <span asp-validation-for="SeoKeyword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SeoDesCriptions" class="control-label">SeoDescription</label>
+                            <textarea  asp-for="SeoDesCriptions" id="SeoDesCriptions" type="text" class="form-control" ></textarea>
+                            <span asp-validation-for="SeoDesCriptions" class="text-danger"></span>
+                        </div>
+                </div>
+                <!-- /.tab-pane -->
+                                         <div class="form-group m-4">
+                            <input type="submit" value="Tạo mới" class="btn btn-primary">
+                        </div>
+            </div>
+
+            <!-- /.tab-content -->
+        </div><!-- /.card-body -->
+
+
+        </form>
+    </div>
+
+    <!-- /.card -->
+</div>
+
+@{
+    var summernote = new Summernote("#Contents", true);
+    var summernote2 = new Summernote("#SeoDesCriptions", false);
+}
+<partial name="_partialSummernote" model="@summernote">
+<partial name="_partialSummernote" model="@summernote2">
+
+@section Scripts {
+                <script src="~/lib/multiple-select/multiple-select.min.js"></script>
+            <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+
+            <script>
+
+                            $("#CategoryIDs").multipleSelect({
+                    selectAll: false,
+                    keepOpen: false,
+                    isOpen: false,
+                });
+
+
+                // DOM utility functions:
+
+                const el = (sel, par) => (par || document).querySelector(sel);
+                const elNew = (tag, props) => Object.assign(document.createElement(tag), props);
+
+
+                // Preview images before upload:
+
+                const elFiles = el("#files");
+                const elPreview = el("#preview");
+
+                const previewImage = (props) => elPreview.append(elNew("img", props));
+
+                const reader = (file, method = "readAsDataURL") => new Promise((resolve, reject) => {
+                    const fr = new FileReader();
+                    fr.onload = () => resolve({ file, result: fr.result });
+                    fr.onerror = (err) => reject(err);
+                    fr[method](file);
+                });
+
+                const previewImages = async (files) => {
+                    // Remove existing preview images
+                    elPreview.innerHTML = "";
+
+                    let filesData = [];
+
+                    try {
+                        // Read all files. Return Array of Promises
+                        const readerPromises = files.map((file) => reader(file));
+                        filesData = await Promise.all(readerPromises);
+                    } catch (err) {
+                        // Notify the user that something went wrong.
+                        elPreview.textContent = "An error occurred while loading images. Try again.";
+                        // In this specific case Promise.all() might be preferred over
+                        // Promise.allSettled(), since it isn't trivial to modify a FileList
+                        // to a subset of files of what the user initially selected.
+                        // Therefore, let's just stash the entire operation.
+                        console.error(err);
+                        return; // Exit function here.
+                    }
+
+                    // All OK. Preview images:
+                    filesData.forEach(data => {
+                        previewImage({
+                            src: data.result, // Base64 String
+                            alt: data.file.name // File.name String
+                        });
+                    });
+                };
+
+                elFiles.addEventListener("change", (ev) => {
+                    if (!ev.currentTarget.files) return; // Do nothing.
+                    previewImages([...ev.currentTarget.files]);
+                });
+            </script>
+}

@@ -1,0 +1,140 @@
+﻿@using BangHang.Models.Services
+@model List<CartItemModel>
+
+@{
+    Layout = "/Views/Shared/_LayoutHome.cshtml";
+    decimal total = 0;
+}
+
+<link rel="stylesheet" type="text/css" href="~/lib/menu/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_responsive.css">
+
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/shoppingcart.css">
+
+<div class="container single_product_container mb-1">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center mb-0">
+                <ul>
+                    <li><a asp-action="Index" asp-controller="Menu" asp-area="Menus">Trang chủ</a></li>
+                    <li><a href="categories.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Giỏ hàng</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="shopping-cart">
+
+        <div class="column-labels">
+            @* <label class="product-cart-text product-image1">Ảnh sản phẩm</label>*@
+            <label class="product-cart-text product-image1">Ảnh sản phẩm</label>
+            <label class="product-cart-text product-details1">Tên sản phẩm</label>
+            <label class="product-cart-text product-price">Giá</label>
+            <label class="product-cart-text product-quantity">Số lượng</label>
+            <label class="product-cart-text product-removal"></label>
+            <label class="product-cart-text product-line-price">Tổng</label>
+        </div>
+
+
+        @if (Model?.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                decimal totalitem = 0;
+                if (item.Product?.PriceSale > 0)
+                {
+                    totalitem = item.Product.PriceSale.GetValueOrDefault() * item.quantity.GetValueOrDefault();
+                    total = total + (totalitem);
+                }
+                else
+                {
+                    totalitem = item.Product.Price.GetValueOrDefault() * item.quantity.GetValueOrDefault();
+                    total = total + (totalitem);
+                }
+
+                <div class="product">
+                    <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.Product.Id">
+                    <div class="product-image1">
+                        <img src="/Contents/Products/@item.Product?.ProductPhoto?.Select(c => c.Name).FirstOrDefault()">
+                    </div>
+
+                        <div class="product-details1">
+                            <div class="product-title">@item.Product.Title</div>
+                            <p class="product-description">@item.Product.DesCriptions</p>
+                        </div>
+                    </a>
+                    @if (item.Product.PriceSale > 0)
+                    {
+                         <small class="small-price-sale">@item.Product.Price.ToString()</small>
+                            <br>
+                        <div class="product-price">
+                           
+                            @item.Product.PriceSale
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="product-price">
+                            @item.Product.Price
+                        </div>
+                    }
+                    <div class="product-quantity">
+                        <input data-id="@item.Product.Id" value="@item.quantity" min="1">
+                    </div>
+                    <div class="product-removal">
+                        <button class="remove-product remove-product2" data-id="@item.Product.Id">
+                            Xóa
+                        </button>
+                    </div>
+                    <div class="product-line-price">@totalitem</div>
+                </div>
+
+            }
+        }
+
+
+
+        @*  <div class="product">
+        <div class="product-image1">
+        <img src="https://s.cdpn.io/3/large-NutroNaturalChoiceAdultLambMealandRiceDryDogFood.png">
+        </div>
+        <div class="product-details1">
+        <div class="product-title">Nutro™ Adult Lamb and Rice Dog Food</div>
+        <p class="product-description">Who doesn't like lamb and rice? We've all hit the halal cart at 3am while quasi-blackout after a night of binge drinking in Manhattan. Now it's your dog's turn!</p>
+        </div>
+        <div class="product-price">45.99</div>
+        <div class="product-quantity">
+        <input type="number" value="1" min="1">
+        </div>
+        <div class="product-removal">
+        <button class="remove-product">
+        Remove
+        </button>
+        </div>
+        <div class="product-line-price">45.99</div>
+        </div>
+        *@
+        <div class="totals">
+
+            <div class="totals-item totals-item-total">
+                <label>Tổng tiền</label>
+                <div class="totals-value" id="cart-total">@total</div>
+            </div>
+        </div>
+
+        <a class="checkoutt" asp-action="Create" asp-controller="OrderProduct" asp-area="Order">Đặt hàng</a>
+
+    </div>
+</div>
+
+

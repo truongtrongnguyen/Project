@@ -1,0 +1,155 @@
+﻿@using BangHang.Areas.Blog.Models
+@model PostModel
+
+
+@section naviheader{
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a asp-action="Index" asp-controller="Home" class="nav-link">Trang chủ</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Bài viết</a>
+        </li>
+        <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Chỉnh sửa</a>
+        </li>
+    </ul>
+}
+
+
+
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Chỉnh sửa bài viết</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Chỉnh sửa</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Thông tin chỉnh sửa bài viết</h3>
+            </div>
+            <div class="card-body">
+                <div class="bs-stepper-content">
+
+                    <div class="col-md-8">
+                        <form asp-action="Edit" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <input type="hidden" asp-for="Id"/>
+                            <div class="form-group">
+                                <label asp-for="CategoryIDs" class="control-label"></label>
+                                <select asp-for="CategoryIDs" asp-items="ViewBag.Categories" class="w-100" multiple="multiple"></select>
+                                <span asp-validation-for="CategoryIDs" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Title" class="control-label"></label>
+                                <input asp-for="@Model.Title" class="form-control" />
+                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Slug" class="control-label"></label>
+                                <input asp-for="@Model.Slug" class="form-control" />
+                                <span asp-validation-for="@Model.Slug" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                 <div class="form-group form-check col-4 ">
+                                <label class="form-check-label"></label>
+                                 <input asp-for="IsActive" class="form-check-input">@Html.DisplayNameFor(model => model.IsActive)
+                            </div>
+
+                            <div class="form-group form-check col-4">
+                                <label class="form-check-label"></label>
+                                <input asp-for="IsHot" class="form-check-input">@Html.DisplayNameFor(model => model.IsHot)
+                            </div>
+                            </div>
+
+                             <div class="form-group">
+                                <label asp-for="@Model.Avata" class="form-label"></label>
+                                <input type='file' id="imgInp" asp-for="Avata"/>
+                                <img id="blah" src="~/Contents/Posts/@Model.Image" style="width: 150px; height: 150px;"/>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.DesCriptions" class="control-label"></label>
+                                <input asp-for="@Model.DesCriptions" class="form-control" />
+                                <span asp-validation-for="@Model.DesCriptions" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="@Model.Contents" class="control-label"></label>
+                                <textarea asp-for="@Model.Contents" rows="5" class="form-control"></textarea>
+                                <span asp-validation-for="@Model.Contents" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group mt-2">
+                                <a class="btn btn-danger mr-3" asp-action="Index">Quay lại</a>
+                                <input type="submit" value="Lưu bài viết" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+        </div>
+        <!-- /.card-footer-->
+        <!-- /.card -->
+    </section>
+
+    @{
+    var summernote1 = new App.Models.Summernote("#Contents", true);
+}
+<partial name="_PartialSummernote" model="@summernote1">
+
+@section Scripts {
+
+        <script src="~/lib/multiple-select/multiple-select.min.js"></script>
+        <link rel="stylesheet" href="~/lib/multiple-select/multiple-select.min.css" />
+
+        <script>
+            $("#CategoryIDs").multipleSelect({
+                selectAll: false,
+                keepOpen: false,
+                isOpen: false,
+            });
+
+           // Function Xử lí ảnh khi chọn
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $('#blah').attr('src', e.target.result);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imgInp").change(function() {
+                readURL(this);
+            });
+        </script>
+
+        <partial name="_ValidationScriptsPartial" />
+}

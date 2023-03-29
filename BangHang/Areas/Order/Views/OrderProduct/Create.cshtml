@@ -1,0 +1,136 @@
+﻿@using BangHang.Models.Services
+@using  BangHang.Models.OderProduct
+@model Order
+
+@{
+    Layout = "/Views/Shared/_LayoutHome.cshtml";
+    var cartItems = ViewBag.cartItems as List<CartItemModel>;
+}
+<link rel="stylesheet" type="text/css" href="~/lib/menu/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_styles.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_responsive.css">
+
+
+<div class="container single_product_container mb-1">
+    <div class="row">
+        <div class="col">
+
+            <!-- Breadcrumbs -->
+
+            <div class="breadcrumbs d-flex flex-row align-items-center mb-0">
+                <ul>
+                    <li><a asp-action="Index" asp-controller="Menu" asp-area="Menus">Trang chủ</a></li>
+                    <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Thanh toán</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="text-center col-12 mt-4">
+        <h1>Thanh toán</h1>
+        <p>Bạn hãy kiểm tra lại đơn hàng cho chính xác!!!</p>
+    </div>
+
+    <hr />
+
+    @if (cartItems?.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-7">
+                <h3>Thông tin khách hàng</h3>
+                <form asp-action="Create" asp-controller="OrderProduct" asp-area="Order" >
+                    <input type="hidden" asp-for="TotalAmount" value="@ViewBag.total"/>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="CustomerName" class="control-label"></label>
+                        <input asp-for="CustomerName" class="form-control" />
+                        <span  asp-validation-for="CustomerName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Phone" class="control-label"></label>
+                        <input asp-for="Phone" type="tel" class="form-control" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label"></label>
+                        <input asp-for="Address" class="form-control" />
+                        <span  asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span  asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Payment" class="control-label"></label>
+                        <select asp-for="Payment" class="form-control" name="Payment">
+                            <option value="1" selected>COD</option>
+                            <option value="2">Chuyển khoản</option>
+                        </select>
+                        <span asp-validation-for="Payment" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mt-2">
+                        <input type="submit" value="Gửi" class="btn btn-success btn-block">
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-5">
+                <h3>Chi tiết giỏ hàng</h3>
+
+                <table class="table">
+                    @foreach (var item in cartItems)
+                    {
+                        <tr>
+                            <td>
+                                <img style="width:100px" src="/Contents/Products/@item.Product?.ProductPhoto?.Select(c => c.Name).FirstOrDefault()">
+                            </td>
+                            <td>
+                                @item.Product.Title
+                            </td>
+                            <td>
+                                @if (item.Product.PriceSale > 0)
+                                {
+                                    <div class="product-price">
+                                        <small style="text-decoration: line-through;">@item.Product.Price</small>
+                                        <br>
+                                        @item.Product.PriceSale
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="product-price">
+                                        @item.Product.Price
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @( "x" + @item.quantity.ToString())
+                            </td>
+                        </tr>
+                    }
+                    <th>Tổng:</th>
+                    <td></td>
+                    <th>@ViewBag.total</th>
+                </table>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>Không có sản phẩm nào trong giỏ hàng, hãy đi đến <a asp-action="Index" asp-area="Menus" asp-controller="Menu">trang chủ</a> để thêm sản phẩm mới</p>
+    }
+
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

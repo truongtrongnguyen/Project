@@ -1,0 +1,89 @@
+﻿@using BangHang.Models.Product
+@model List<CategoryPro>
+@{
+
+}
+
+<div class="card-header">
+    <h3 class="card-title">Danh sách danh mục</h3>
+
+    <div class="card-tools">
+        <a asp-action="Create" class="btn btn-primary m-2">Thêm mới</a>
+    </div>
+    <div class="card-body">
+        <thread>
+        </thread><table class="table table-hover">
+            <thread>
+                <tr>
+                    <th>Ảnh đại diện</th>
+                    <th>Tên danh mục</th>
+                    <th>Hiển thị</th>
+                    <th>Url</th>
+                    <th></th>
+                </tr>
+            </thread>
+            <tbody>
+                    @foreach (var item in Model)
+                    {
+                         await RenderCategory(item, 0);
+                    }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+    </div>
+    <!-- /.card-footer-->
+</div>
+
+@{
+    async Task RenderCategory(CategoryPro category, int level)
+    {
+        string prefex = String.Concat(Enumerable.Repeat("--", level));
+        <tr id="trow_@category.Id">
+             <td><img src="/Contents/@ViewBag.folderImage/@category.Image" style="width: 50px; height: 50px;"  alt=""/></td>
+            <td>
+                @Html.Raw(prefex + category.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(c  => category.IsActive)
+            </td>
+            <td>@category.Slug</td>
+            <td>
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@category.Id">Sửa</a>
+                <a class="btn btn-secondary" asp-action="Detail" asp-route-id="@category.Id">Chi tiết</a>
+                <a class="btn btn-danger btnDelete" data-id="@category.Id" href="#">Xóa</a>
+            </td>
+        </tr>
+        @if(category.CategoryChildrent?.Count > 0)
+        {
+            foreach(var item in category.CategoryChildrent)
+            {
+                await RenderCategory(item, level + 1);
+            }
+        }
+    }
+}
+
+@section Scripts {
+    <script>
+$('body').on('click', '.btnDelete', function() {
+    var _id = $(this).data('id');
+    var conf = confirm("Bạn có muốn xóa danh mục???");
+    if (conf == true) {
+        var UrlDelete = "@Url.Action("Delete")";
+        $.ajax({
+            data: { id: _id },
+            type: 'POST',
+            url: UrlDelete,
+            success: function(rs) {
+                if (rs.success == true) {
+                     $('#trow_' + _id).remove();
+                }
+            }
+        });
+    }
+
+});
+    </script>
+}

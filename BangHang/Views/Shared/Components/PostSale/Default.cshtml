@@ -1,0 +1,22 @@
+﻿@using BangHang.Models.Blog
+@model Post
+
+@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="main_slider" style="background-image:url(/Contents/Posts/@Model.Image">
+		<div class="container fill_height">
+			<div class="row align-items-center fill_height">
+				<div class="col">
+					<div class="main_slider_content">
+						<h6>@Model.DesCriptions</h6>
+						<h1>@Model.Title</h1>
+						<div class="red_button shop_now_button"><a href="#">shop now</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+

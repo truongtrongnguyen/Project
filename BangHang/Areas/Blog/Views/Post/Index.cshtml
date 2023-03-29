@@ -1,0 +1,84 @@
+﻿@using BangHang.Models.Blog
+@model List<Post>
+@{
+    var i = 1;
+    var str ="";
+}
+
+<div class="card-header">
+    <h3 class="card-title">Danh sách danh mục</h3>
+
+    <div class="card-tools">
+        <a asp-action="Create" class="btn btn-primary m-2">Thêm mới</a>
+    </div>
+    <div class="card-body">
+        <thread>
+        </thread><table class="table table-hover">
+            <thread>
+                <tr>
+                    <th>STT</th>
+                    <th>Ảnh đại diện</th>
+                    <th>Tên bài viết</th>
+                    <th>Hiển thị</th>
+                    <th>Nổi bậc</th>
+                    <th>Url</th>
+                    <th></th>
+                </tr>
+            </thread>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="trow_@item.Id">
+                        <td>@(i++)</td>
+                        <td><img src="~/Contents/Posts/@item.Image" style="width: 50px; height: 50px;"  alt=""/></td>
+                        <td>
+                            @item.Title
+                            <br>
+                            <small>@String.Join(", ", item.PostCategory.Select(c => c.Category.Title))</small>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.IsActive)
+                        </td>
+                         <td>
+                            @Html.DisplayFor(model => item.IsHot)
+                        </td>
+                        <td>@item.Slug</td>
+                        <td>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Sửa</a>
+                            <a class="btn btn-secondary" asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
+                            <a class="btn btn-danger btnDelete" data-id="@item.Id" href="#">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+    </div>
+    <!-- /.card-footer-->
+</div>
+
+
+@section Scripts {
+    <script>
+        $('body').on('click', '.btnDelete', function() {
+            var _id = $(this).data('id');
+            var conf = confirm("Bạn có muốn xóa bài viết ???");
+            if (conf == true) {
+                var UrlDelete = "@Url.Action("Delete")";
+                $.ajax({
+                    data: { id: _id },
+                    type: 'POST',
+                    url: UrlDelete,
+                    success: function(rs) {
+                        if (rs.success == true) {
+                            $('#trow_' + _id).remove();
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+}

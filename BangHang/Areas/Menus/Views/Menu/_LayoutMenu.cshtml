@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "/Views/Shared/_LayoutHome.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
+
+@*<!-- MenuTop -->
+@RenderSection("MenuTop", false)*@
+<body>
+    <!-- Slider -->
+@RenderSection("PostSale", false)
+
+<!-- Banner -->
+@RenderSection("CategoryProduct", false)
+
+<!-- New Arrivals -->
+@RenderSection("NewArrivals", false)
+
+<!-- Deal of the week -->
+@RenderSection("PostOutstanding", false)
+
+<!-- Best Sellers -->
+@RenderSection("ProductsIsSale", false)
+
+<!-- Blogs -->
+@RenderSection("Blog", false)
+</body>
+
+
+

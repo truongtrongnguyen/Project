@@ -1,0 +1,19 @@
+﻿@using BangHang.Models.Product
+@model List<CategoryPro>
+
+<div class="banner">
+		<div class="container">
+			<div class="row">
+				@foreach(var item in Model)
+				{
+					<div class="col-md-4 mt-4">
+						<div class="banner_item align-items-center" style="background-image:url(/Contents/CategoryPro/@item.Image)">
+							<div class="banner_category">
+								<a asp-action="Categories" asp-controller="Menu" asp-area="Menus" asp-route-slug="@item.Slug">@item.Title</a>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		</div>
+	</div>

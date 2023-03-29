@@ -1,0 +1,90 @@
+﻿@using BangHang.Models.Services
+@using  BangHang.Models.OderProduct
+@model Order
+
+@{
+    Layout = "/Views/Shared/_LayoutAdmin.cshtml";
+    
+}
+
+
+<div class="container single_product_container mb-2">
+    <div class="text-center col-12 mt-4">
+        <h1>Chi tiết đơn hàng</h1>
+    </div>
+
+    <hr />
+
+        <div class="row">
+            <div class="col-md-5 ml-4">
+                <h3>Thông tin khách hàng</h3>
+
+                <form asp-action="Create" asp-controller="OrderProduct" asp-area="Order" >
+                    <input type="hidden" asp-for="TotalAmount" value="@ViewBag.total"/>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label class="control-label">Mã đơn hàng: @Model.Code</label>
+                        <br />
+                        <label class="control-label">Tên khách hàng: @Model.CustomerName</label>
+                        <br />
+                        <label class="control-label">Số điện thoại: @Model.Phone</label>
+                        <br />
+                        <label class="control-label">Email: @Model.Email</label>
+                        <br />
+                        <label class="control-label">Địa chỉ: @Model.Address</label>
+                        <br />
+                        <label class="control-label">Phương thức thanh toán: @Model.Payment</label>
+                        <br />
+                        <label class="control-label">Ngày đặt hàng  : @Model.DateCreate</label>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-md-5">
+                <h3>Chi tiết giỏ hàng</h3>
+
+                <table class="table">
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr>
+                            <td>
+                                <img style="width:100px" src="/Contents/Products/@item.ImageAvata">
+                            </td>
+                            <td>
+                                <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.ProductID">@item.NameProduct</a>
+                            </td>
+                            <td>
+                                @if (item.PriceSale > 0)
+                                {
+                                    <div class="product-price">
+                                        <small style="text-decoration: line-through;">@item.Price</small>
+                                        <br>
+                                        @item.PriceSale
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="product-price">
+                                        @item.Price
+                                    </div>
+                                }
+                            </td>
+                            <td>
+                                @( "x" + @item.Quantity.ToString())
+                            </td>
+                        </tr>
+                    }
+                    <th>Tổng:</th>
+                    <td></td>
+                    <th>@Model.TotalAmount</th>
+                </table>
+
+            </div>
+        </div>
+
+</div>
+
+
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

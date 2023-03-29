@@ -1,0 +1,33 @@
+﻿@using BangHang.Models.Blog
+@using App.Components;
+@using static App.Components.NewArrivals
+
+@{
+    Layout = "/Areas/Menus/Views/Menu/_LayoutMenu.cshtml";
+}
+
+@*    @section MenuTop {
+          @await Component.InvokeAsync("App.Components.MenuTop", @ViewBag.categoryTop)
+    }*@
+    @section PostSale {
+         @await Component.InvokeAsync("App.Components.PostSale", ViewBag.PostSale)
+    }
+    @section CategoryProduct {
+        @await Component.InvokeAsync("App.Components.CategoryProduct", ViewBag.CategoryPro)
+    }
+    @section NewArrivals {
+        @await Component.InvokeAsync("App.Components.NewArrivals",new NewArrivalsData() {
+            CategoryPro = ViewBag.CategoryPro,
+            Products = ViewBag.Products
+        })
+    }
+    @section PostOutstanding {
+        @await Component.InvokeAsync("App.Components.PostOutstanding", ViewBag.postOutstanding)
+    }
+    @section ProductsIsSale {
+        @await Component.InvokeAsync("App.Components.ProductsIsSale", ViewBag.productIsSale)
+    }
+    @section Blog {
+        @await Component.InvokeAsync("App.Components.Blog", ViewBag.Blog)
+    }
+  
