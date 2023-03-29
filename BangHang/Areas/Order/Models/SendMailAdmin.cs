@@ -15,18 +15,25 @@ namespace BangHang.Areas.Models.SendMail
                 {
                 html.Append(
                     $@"
+
                         <tr>
-                           <td style=""color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word"">
-                               {item.NameProduct}
-                            </td>
-                            <td style=""color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif"">
-                                {item.Quantity}
-                            </td>
-                            <td style=""color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif"">
-                               <small style=""text-decoration: line-through; "">{item.Price}</small>
-                                <span>{item.PriceSale}&nbsp;<span>VND</span></span>
-                            </td>
-                        </tr>
+                            <td>
+                                <img style=""width: 100px"" src=""/Contents/ Products / @item.Product?.ProductPhoto?.Select(c => c.Name).FirstOrDefault()"">
+                            </ td >
+                            < td >
+                                @item.Product.Title
+                            </ td >
+                            < td >
+                                    < div class=""product-price"">
+                                        <small style = ""text-decoration: line-through;"" > {item.Price} </ small >
+                                        < br >
+                                        {item.PriceSale}
+                                    </ div >
+                            </ td >
+                            < td >
+                                @(""x"" + @item.quantity.ToString())
+                            </ td >
+                        </ tr >
                     "
                     );
                 }
@@ -34,17 +41,28 @@ namespace BangHang.Areas.Models.SendMail
                 {
                     html.Append(
                     $@"
-                        <tr>
-                           <td style=""color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word"">
-                               {item.NameProduct}
-                            </td>
-                            <td style=""color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif"">
-                                {item.Quantity}
-                            </td>
-                            <td style=""color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif"">
-                                <span>{item.Price}&nbsp;<span>VND</span></span>
-                            </td>
-                        </tr>
+                                               <tr>
+                            <td>
+                                <img style=""width: 100px"" src="" / Contents / Products / @item.Product?.ProductPhoto?.Select(c => c.Name).FirstOrDefault()"">
+                            </ td >
+                            < td >
+                                @item.Product.Title
+                            </ td >
+                            < td >
+                                    < div class=""product-price"">
+                                        <small style = ""text-decoration: line-through;"" > @item.Product.Price </ small >
+                                        < br >
+                                        @item.Product.PriceSale
+                                    </ div >
+
+                                    < div class=""product-price"">
+                                        @item.Product.Price
+                                    </div>
+                            </ td >
+                            < td >
+                                @(""x"" + @item.quantity.ToString())
+                            </ td >
+                        </ tr >
                     "
                     );
                 }
