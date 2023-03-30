@@ -1,9 +1,9 @@
 From: TruongTrongNguyen <trongnguyenkhanhhung@gmail.com>
-Date: Wed, 29 Mar 2023 19:58:41 +0700
-Subject: =?utf-8?b?xJDGoW4gaMOgbmcgdOG7qyBUaOG6vw==?= Anh
-Message-Id: <R9PQMNVQJJU4.KNX8DLHT9LID3@desktop-oja04ug>
+Date: Thu, 30 Mar 2023 15:41:37 +0700
+Subject: =?utf-8?b?xJDGoW4gaMOgbmcgdOG7qyBOZ3V54buFbg==?=
+Message-Id: <9TKISPXZJJU4.WUB39BBP7RGH@desktop-oja04ug>
 Sender: TruongTrongNguyen <trongnguyenkhanhhung@gmail.com>
-To: thaovy@gmail.com
+To: trongnguyenkhanhhung@gmail.com
 MIME-Version: 1.0
 Content-Type: text/html; charset=utf-8
 
@@ -46,15 +46,16 @@ Content-Type: text/html; charset=utf-8
                                                                         <td valign="top" style="padding:48px 48px 32px">
                                                                             <div style="color:#636363;font-family:&quot;Helvetica Neue&quot;,Helvetica,Roboto,Arial,sans-serif;font-size:14px;line-height:150%;text-align:left">
 
-                                                                                <p style="margin:0 0 16px">Bạn vừa nhận được đơn hàng từ Thế Anh. Đơn hàng như sau:</p>
+                                                                                <p style="margin:0 0 16px">Bạn vừa nhận được đơn hàng từ Nguyễn. Đơn hàng như sau:</p>
                                                                                 <h2 style="color:#96588a;display:block;font-family:&quot;Helvetica Neue&quot;,Helvetica,Roboto,Arial,sans-serif;font-size:18px;font-weight:bold;line-height:130%;margin:0 0 18px;text-align:left">
-                                                                                    <a href="#" style="font-weight:normal;text-decoration:underline;color:#96588a" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://rarejuna.vn/wp-admin/post.php?post%3D4773%26action%3Dedit&amp;source=gmail&amp;ust=1656560185118000&amp;usg=AOvVaw2QhwJm1UcU7687gHkHSQ3N">[Đơn hàng MH2023329195841]</a> (3/29/2023 7:58:41 PM)
+                                                                                    <a href="#" style="font-weight:normal;text-decoration:underline;color:#96588a" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://rarejuna.vn/wp-admin/post.php?post%3D4773%26action%3Dedit&amp;source=gmail&amp;ust=1656560185118000&amp;usg=AOvVaw2QhwJm1UcU7687gHkHSQ3N">[Đơn hàng MH2023330154137]</a> (3/30/2023 3:41:37 PM)
                                                                                 </h2>
 
                                                                                 <div style="margin-bottom:40px">
                                                                                     <table cellspacing="0" cellpadding="6" border="1" style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;width:100%;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
                                                                                         <thead>
                                                                                             <tr>
+                                                                                                <th>Ảnh sản phẩm</th>
                                                                                                 <th scope="col" style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;padding:12px;text-align:left">Sản phẩm</th>
                                                                                                 <th scope="col" style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;padding:12px;text-align:left">Số lượng</th>
                                                                                                 <th scope="col" style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;padding:12px;text-align:left">Giá</th>
@@ -63,42 +64,48 @@ Content-Type: text/html; charset=utf-8
                                                                                         <tbody>
                                                                                             
                         <tr>
-                           <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
-                               Samsung CF591 Series Curved 27-Inch FHD Monitor
-                            </td>
-                            <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-                                1
-                            </td>
-                            <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-                               <small style="text - decoration: line - through; ">610000.00</small>
-                                <span>589000.00&nbsp;<span>VND</span></span>
-                            </td>
-                        </tr>
+                        <td>
+                                    <image src="/Contents/Products/o0apffy3.zdd.png"></image>
+                                  </td>
+		                <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
+		                Samsung CF591 Series Curved 27-Inch FHD Monitor</td>
+		                <td style = "color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif" >
+                            1 </td>
+
+                        <td style = "color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif" >
+                            <small style="text-decoration: line-through; ">589000.00</small>
+                                        <br/>
+                            <span> 610000.00 &nbsp;<span> VND </span></span></td>
+
+                    </tr>
                     
                         <tr>
-                           <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
-                               Blue Yeti USB Microphone Blackout Edition
-                            </td>
-                            <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-                                1
-                            </td>
-                            <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-                                <span>120000.00&nbsp;<span>VND</span></span>
-                            </td>
-                        </tr>
+                        <td>
+                                    <image src="/Contents/Products/zjvkuwbd.r5a.png"></image>
+                                  </td>
+		                <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
+		                Pryma Headphones, Rose Gold & Grey</td>
+		                <td style = "color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif" >
+                            1 </td>
+
+                        <td style = "color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif" >
+                            <small style="text-decoration: line-through; ">1790000.00</small>
+                                        <br/>
+                            <span> 180000.00 &nbsp;<span> VND </span></span></td>
+
+                    </tr>
                     
-                        <tr>
-                           <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
-                               DYMO LabelWriter 450 Turbo Thermal Label Printer
-                            </td>
-                            <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-                                1
-                            </td>
-                            <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif">
-                               <small style="text - decoration: line - through; ">410000.00</small>
-                                <span>399000.00&nbsp;<span>VND</span></span>
-                            </td>
-                        </tr>
+                       <tr>
+                        <image src="/Contents/Products/ctyofhst.x1i.png"></image>
+		                <td style="color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif;word-wrap:break-word">
+		                Samsung CF599 Series Curved Inch FHD Monitor</td>
+		                <td style = "color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif" >
+                            2 </td>
+
+                        <td style = "color:#636363;border:1px solid #e5e5e5;padding:12px;text-align:left;vertical-align:middle;font-family:'Helvetica Neue',Helvetica,Roboto,Arial,sans-serif" >
+                            <span> 610000.00 &nbsp;<span> VND </span></span></td>
+
+                    </tr>
                     
                                                                                         </tbody>
                                                                                         <tfoot>
@@ -108,7 +115,7 @@ Content-Type: text/html; charset=utf-8
                                                                                             </tr>
                                                                                             <tr>
                                                                                                 <th scope="row" colspan="2" style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;padding:12px;text-align:left">Tổng cộng:</th>
-                                                                                                <td style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;padding:12px;text-align:left"><span>1108000.00&nbsp;<span>VND</span></span></td>
+                                                                                                <td style="color:#636363;border:1px solid #e5e5e5;vertical-align:middle;padding:12px;text-align:left"><span>3599000.00&nbsp;<span>VND</span></span></td>
                                                                                             </tr>
                                                                                         </tfoot>
                                                                                     </table>
@@ -122,9 +129,9 @@ Content-Type: text/html; charset=utf-8
                                                                                                 <h2 style="color:#96588a;display:block;font-family:&quot;Helvetica Neue&quot;,Helvetica,Roboto,Arial,sans-serif;font-size:18px;font-weight:bold;line-height:130%;margin:0 0 18px;text-align:left">Thông tin người nhận</h2>
 
                                                                                                 <address style="padding:12px;color:#636363;border:1px solid #e5e5e5">
-                                                                                                    Thế Anh<br>
-                                                                                                       Địa chỉ: 1234567 Nguyễn Văn Cừ  
-                                                                                                    <br><a href="tel:0981999410" style="color:#96588a;font-weight:normal;text-decoration:underline" target="_blank">0981999410</a>													<br><a href="mailto:thaovy@gmail.com" target="_blank">thaovy@gmail.com</a>
+                                                                                                    Nguyễn<br>
+                                                                                                       Địa chỉ: 123456 Võ Văn Kệt Quận bình Thủy, Thành phố Cần Thơ  
+                                                                                                    <br><a href="tel:0965874321" style="color:#96588a;font-weight:normal;text-decoration:underline" target="_blank">0965874321</a>													<br><a href="mailto:truongtrongnguyenx@gmail.com" target="_blank">truongtrongnguyenx@gmail.com</a>
                                                                                                 </address>
                                                                                             </td>
                                                                                         </tr>

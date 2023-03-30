@@ -180,6 +180,7 @@
     <Folder Include="Areas\Menus\Data\" />
     <Folder Include="Areas\Order\Data\" />
     <Folder Include="Areas\Products\Data\" />
+    <Folder Include="mailssave\" />
     <Folder Include="Uploads\CategoryPro\" />
     <Folder Include="Uploads\Products\" />
     <Folder Include="Uploads\Posts\" />
