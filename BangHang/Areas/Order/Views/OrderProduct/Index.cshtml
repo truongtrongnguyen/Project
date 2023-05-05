@@ -1,7 +1,9 @@
 ﻿@using BangHang.Models.OderProduct
+@using BangHang.Models.Services
+
 @model List<Order>
 @{
-    var i = 1;
+ 
 }
 
 <div class="card-header">
@@ -11,16 +13,14 @@
         <a asp-action="Create" class="btn btn-primary m-2">Thêm mới</a>
     </div>*@
     <div class="card-body">
-        <table class="table table-hover">
+        <table class="table table-bordered">
             <thread>
                 <tr>
                     <th>STT</th>
                     <th>Mã đơn hàng</th>
                     <th>Tên khách hàng</th>
                     <th>Số điện thoại</th>
-                    <th>Email</th>
                     <th>Tổng tiền</th>
-                    <th>Ngày đặt</th>
                     <th>Loại thanh toán</th>
                     <th></th>
                 </tr>
@@ -30,7 +30,7 @@
                 {
                     
                     <tr id="trow_@item.Id">
-                        <td>@(i++)</td>
+                        <td>@(++ViewBag.OrderIndex)</td>
                         <td>
                             <a asp-action="OrderDetail" asp-controller="OrderProduct" asp-area="Order" asp-route-id="@item.Id">
                                 @item.Code
@@ -38,10 +38,9 @@
                          </td>
                         <td>@item.CustomerName</td>
                         <td>@item.Phone</td>
-                        <td>@item.Email</td>
                         <td>@item.TotalAmount</td>
-                        <td>@item.DateCreate</td>
-                        <td>@item.Payment</td>
+                        <td id="checkout_items_@item.Id"d>@(item.Payment == 1 ? "Chờ thanh toán" : "Đã thanh toán")</td>
+                        <td><button class="btn btn-sm btn-primary btnCapNhat " data-id="@item.Id" >Cập nhật</button></td>
                     </tr>
 
 
@@ -49,9 +48,74 @@
             </tbody>
         </table>
 
+
     </div>
+
+
     <!-- /.card-body -->
     <div class="card-footer">
     </div>
     <!-- /.card-footer-->
 </div>
+   <partial class="mt-4" name="_PagingXTL" model="@ViewBag.pagingModel">
+
+  <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Cập nhật trạng thái</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="OrderDetailId" value="0"/>
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <select class="form-control" id="ddTrangThai">
+                         <option value="1">Chưa thanh toán</option>
+                        <option value="2">Đã thanh toán</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary btnLuu" data-dismiss="modal">Lưu</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+@section Scripts {
+    <script>
+$(document).ready(function() {
+    $('body').on('click', '.btnCapNhat', function() {
+        var id = $(this).data("id");
+        $('#OrderDetailId').val(id);
+        $('#modal-default').modal('show')
+    })
+
+     $('body').on('click', '.btnLuu', function() {
+        var id = $('#OrderDetailId').val();
+        var trangthai = $('#ddTrangThai').val();
+         $.ajax({
+             url: '/order/orderproduct/updatePayment/',
+             data: {id:id, trangthai:trangthai},
+             type: 'POST',
+             success: function(rs) {
+                 if (rs.success) {
+                     if (rs.payment === 2) {
+                         $('#checkout_items_' + id).html("Đã thanh toán");
+                     }
+                     else {
+                         $('#checkout_items_' + id).html("Chờ thanh toán");
+                     }
+                 }
+             }
+         })
+    })
+});
+    </script>
+}

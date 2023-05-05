@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using BangHang.Models.Product;
 using System.Linq;
 using BangHang.Models.Services;
-using BangHang.Models.Services;
 
 namespace BangHang.Areas.Menus.Controllers
 {

@@ -18,13 +18,14 @@ namespace BangHang.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var category = _context.Categories.ToList();
+            //var category = _context.Categories.ToList();
 
-            var product = _context.Products
-                .Include(p => p.ProductPhoto)
-                .Where(p => p.IsHome == true && p.IsSale == true).FirstOrDefault();
-            ViewBag.ProductHomeSale = product;
-            return View(category);
+            //var product = _context.Products
+            //    .Include(p => p.ProductPhoto)
+            //    .Where(p => p.IsHome == true && p.IsSale == true).FirstOrDefault();
+            //ViewBag.ProductHomeSale = product;
+            //return View(category);
+            return RedirectToAction("Index", "Menu", new { area = "Menus" });
         }
 
         public IActionResult ProductHomeSale()

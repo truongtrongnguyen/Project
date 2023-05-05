@@ -1,7 +1,7 @@
 ﻿@using BangHang.Models.Blog
 @model List<Category>
 @{
-    var stt = 1;
+   
 }
 
 <div class="card-header">
@@ -60,23 +60,23 @@
 
 @section Scripts {
     <script>
-$('body').on('click', '.btnDelete', function() {
-    var _id = $(this).data('id');
-    var conf = confirm("Bạn có muốn xóa danh mục???");
-    if (conf == true) {
-        var UrlDelete = "@Url.Action("Delete")";
-        $.ajax({
-            data: { id: _id },
-            type: 'POST',
-            url: UrlDelete,
-            success: function(rs) {
-                if (rs.success == true) {
-                     $('#trow_' + _id).remove();
-                }
+        $('body').on('click', '.btnDelete', function() {
+            var _id = $(this).data('id');
+            var conf = confirm("Bạn có muốn xóa danh mục???");
+            if (conf == true) {
+                var UrlDelete = "@Url.Action("Delete")";
+                $.ajax({
+                    data: { id: _id },
+                    type: 'POST',
+                    url: UrlDelete,
+                    success: function(rs) {
+                        if (rs.success == true) {
+                            $('#trow_' + _id).remove();
+                        }
+                    }
+                });
             }
-        });
-    }
 
-});
+        });
     </script>
 }

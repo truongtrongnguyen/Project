@@ -4,7 +4,8 @@
 
 @{
     Layout = "/Views/Shared/_LayoutAdmin.cshtml";
-    
+    int i = 1;
+
 }
 
 
@@ -15,39 +16,92 @@
 
     <hr />
 
-        <div class="row">
-            <div class="col-md-5 ml-4">
+        <div class="card">
+            <div class="card-header">
                 <h3>Thông tin khách hàng</h3>
+                </div>
 
-                <form asp-action="Create" asp-controller="OrderProduct" asp-area="Order" >
-                    <input type="hidden" asp-for="TotalAmount" value="@ViewBag.total"/>
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                <div class="card-body">
+                     <div class="row">
+                       <div class="col-md-6">
                     <div class="form-group">
-                        <label class="control-label">Mã đơn hàng: @Model.Code</label>
-                        <br />
-                        <label class="control-label">Tên khách hàng: @Model.CustomerName</label>
-                        <br />
-                        <label class="control-label">Số điện thoại: @Model.Phone</label>
-                        <br />
-                        <label class="control-label">Email: @Model.Email</label>
-                        <br />
-                        <label class="control-label">Địa chỉ: @Model.Address</label>
-                        <br />
-                        <label class="control-label">Phương thức thanh toán: @Model.Payment</label>
-                        <br />
-                        <label class="control-label">Ngày đặt hàng  : @Model.DateCreate</label>
+                        <label>Mã đơn hàng</label>
+                        <p class="form-control">@Model.Code</p>
                     </div>
-                </form>
-            </div>
+                       </div>
+                        <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Họ tên khách hàng</label>
+                        <p class="form-control">@Model.CustomerName</p>
+                    </div>
+                       </div>
+                 </div>
 
-            <div class="col-md-5">
-                <h3>Chi tiết giỏ hàng</h3>
+                 <div class="row">
+                       <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Tổng tiền</label>
+                        <p class="form-control">@Model.TotalAmount</p>
+                    </div>
+                       </div>
+                        <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Số điện thoại</label>
+                        <p class="form-control">@Model.Phone</p>
+                    </div>
+                       </div>
+                 </div>
 
-                <table class="table">
-                    @foreach (var item in Model.OrderDetails)
+                 <div class="row">
+                       <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Ngày tạo</label>
+                        <p class="form-control">@Model.DateCreate</p>
+                    </div>
+                       </div>
+                        <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <p class="form-control">@Model.Email</p>
+                    </div>
+                       </div>
+                 </div>
+
+                 <div class="row">
+                       <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Trạng thái thanh toán</label>
+                        <p class="form-control">@(Model.Payment == 1 ? "Chưa thanh toán" : "Đã thanh toán")</p>
+                    </div>
+                       </div>
+                        <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Địa chỉ</label>
+                        <p class="form-control">@Model.Address</p>
+                    </div>
+                       </div>
+                 </div>
+
+                 <div class="row">
+                <div class="col-12">
+                    <h2>Danh sách sản phẩm</h2>
+                </div>
+                <div class="col-12">
+                    <table class="table table-bordered">
+                       <thread>
+                           <tr>
+                               <th>STT</th>
+                               <th>Ảnh sản phẩm</th>
+                               <th>Tên sản phẩm</th>
+                               <th>Giá</th>
+                               <th>Số lượng</th>
+                           </tr>
+                       </thread>
+                       <tbody>
+                           @foreach (var item in Model.OrderDetails)
                     {
                         <tr>
+                            <td>@(i++)</td>
                             <td>
                                 <img style="width:100px" src="/Contents/Products/@item.ImageAvata">
                             </td>
@@ -75,12 +129,13 @@
                             </td>
                         </tr>
                     }
-                    <th>Tổng:</th>
-                    <td></td>
-                    <th>@Model.TotalAmount</th>
-                </table>
+                       </tbody>
+                    </table>
+                </div>
+                 </div>
 
-            </div>
+
+                </div>
         </div>
 
 </div>

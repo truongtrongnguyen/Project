@@ -1,11 +1,11 @@
 ﻿using BangHang.Models;
 using BangHang.Models.OderProduct;
 using BangHang.Models.Services;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BangHang.Areas.Models.SendMail;
 using Microsoft.Extensions.Options;
-
 
 namespace BangHang.Areas.OrderProducts.Controllers
 {
@@ -26,11 +26,34 @@ namespace BangHang.Areas.OrderProducts.Controllers
             _mailSetting = mailSetting.Value;
         }
 
-        [HttpGet]
-        public IActionResult Index()
+         [HttpGet]
+        [HttpPost]
+        public IActionResult Index([FromQuery(Name = "p")] int currentPage, int pageSize)
         {
-            var orders = _context.Orders.ToList();
-            return View(orders);
+            IEnumerable<Order> orders = _context.Orders.OrderByDescending(c => c.DateCreate);
+
+            int countPage = orders.Count();
+            pageSize = 5;
+            int pageNumber = (int)Math.Ceiling((double)countPage / pageSize);
+            if (currentPage > countPage) currentPage = countPage;
+            if (currentPage < 1) currentPage = 1;
+            var pagingModel = new PagingModel()
+            {
+                countPages = pageNumber,
+                currentPage = currentPage,
+                generateUrl = (pageNumber) => Url.Action("Index", new
+                {
+                    p = pageNumber,
+                    pageSize = pageSize
+                })
+            };
+
+            var qr = orders.Skip((currentPage - 1) * pageSize).Take(pageSize);
+
+            ViewBag.OrderIndex = (currentPage - 1) * pageSize;
+            ViewBag.pagingModel = pagingModel;
+
+            return View(qr.ToList());
         }
 
         [HttpGet]
@@ -160,6 +183,19 @@ namespace BangHang.Areas.OrderProducts.Controllers
             var categoryTop = _context.Categories.ToList();
             ViewBag.categoryTop = categoryTop;
             return Create();
+        }
+
+        [HttpPost]
+        public IActionResult UpdatePayment (int id, int trangthai)
+        {
+            var order = _context.Orders.Find(id);
+            if(order != null)
+            {
+                order.Payment = trangthai;
+                _context.SaveChanges();
+                return Json(new { success = true, payment = order.Payment });
+            }
+            return Json(new { success = false, payment = order?.Payment });
         }
 
     }
