@@ -1,14 +1,17 @@
 ﻿using BangHang.Areas.Blog.Models;
 using BangHang.Models;
 using BangHang.Models.Blog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace BangHang.Areas.Blog.Controllers
 {
     [Area("Blog")]
     [Route("blog/category/[action]/{id?}")]
+    [Authorize(Roles = "AdminManager")]
     public class CategoryController : Controller
     {
         private readonly AppDbContext _context;
@@ -21,7 +24,8 @@ namespace BangHang.Areas.Blog.Controllers
         {
             var qr = _context.Categories
                       .Include(c => c.CategoryChildrent)
-                      .Include(c => c.CategoryParent);
+                      .Include(c => c.CategoryParent)
+                      .AsQueryable();
             var qr1 = qr.ToList().Where(c => c.CategoryParent == null).ToList();
             return View(qr1);
         }
@@ -224,7 +228,7 @@ namespace BangHang.Areas.Blog.Controllers
                 _context.SaveChanges();
                 return Json(new { success = true });
             }
-            return Json(new { success = false });
+            return Json(new { success = false }, new Newtonsoft.Json.JsonSerializerSettings());
         }
     }
 }

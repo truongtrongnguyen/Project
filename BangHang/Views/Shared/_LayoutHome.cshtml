@@ -19,8 +19,6 @@
 
 <body>
 
-	<div class="super_container">
-
 	<!-- Header -->
 
 		<header class="header trans_300">
@@ -30,7 +28,7 @@
 			<div class="top_nav">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-6">
+						@*<div class="col-md-6">
 							<div class="top_nav_left">free shipping on all u.s orders over $50</div>
 						</div>
 						<div class="col-md-6 text-right">
@@ -75,7 +73,7 @@
 									</li>
 								</ul>
 							</div>
-						</div>
+						</div>*@
 					</div>
 				</div>
 			</div>
@@ -128,8 +126,8 @@
 						</ul>
 					</li>
 					<li class="menu_item"><a href="#">home</a></li>
-					<li class="menu_item"><a href="#">shop</a></li>
-					<li class="menu_item"><a href="#">promotion</a></li>
+					<li class="menu_item"><a asp-action="Index" asp-controller="Menu" asp-area="Menus"> shop</a></li>
+					<li class="menu_item"><a>promotion</a></li>
 					<li class="menu_item"><a href="#">pages</a></li>
 					<li class="menu_item"><a href="#">blog</a></li>
 					<li class="menu_item"><a href="#">contact</a></li>

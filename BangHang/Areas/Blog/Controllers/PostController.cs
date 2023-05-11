@@ -2,14 +2,17 @@
 using BangHang.Areas.Blog.Models;
 using BangHang.Models;
 using BangHang.Models.Blog;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace BangHang.Areas.Blog.Controllers
 {
     [Area("Blog")]
     [Route("/blog/post/[action]/{id?}")]
+    [Authorize(Roles = "AdminManager")]
     public class PostController : Controller
     {
         private readonly AppDbContext _context;
@@ -24,6 +27,7 @@ namespace BangHang.Areas.Blog.Controllers
             var posts = _context.Posts
                         .Include(p => p.PostCategory)
                         .ThenInclude(p => p.Category)
+                        .OrderByDescending(x => x.DateCreate)
                         .ToList();
             return View(posts);
         }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BanHang.Areas.FileManager.Controllers
 {
     [Area("Files")]
+    [Authorize(Roles = "AdminManager")]
     public class FileManagerController : Controller
     {
         [Route("/file-manager")]

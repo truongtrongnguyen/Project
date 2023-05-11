@@ -24,9 +24,6 @@ namespace BangHang.Areas.Menus.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            // Category Post
-            var categoryTop = _context.Categories.ToList();
-            ViewBag.categoryTop = categoryTop;
 
             // Post Sale IsActive
             var PostSale = _context.Posts
@@ -37,6 +34,7 @@ namespace BangHang.Areas.Menus.Controllers
             // Category Product
             var categoryPro = _context.CategoriesPro
                             .Where(c => c.IsActive == true)    
+                            .Take(6)
                             .ToList();
             ViewBag.CategoryPro = categoryPro;
 
@@ -63,8 +61,10 @@ namespace BangHang.Areas.Menus.Controllers
             // Blog
             var blog = _context.Posts
                     .Where(p => p.IsActive == false && p.IsHot == false)
-                    .Take(3)
-                    .ToList();
+                    
+                     .OrderByDescending(x => x.DateCreate)
+					 .Take(3)
+					.ToList();
             ViewBag.Blog = blog;
 
             return View();
@@ -168,9 +168,6 @@ namespace BangHang.Areas.Menus.Controllers
         [HttpGet]
         public async Task<IActionResult> ShoppingCart()
         {
-            // Category Post
-            var categoryTop = _context.Categories.ToList();
-            ViewBag.categoryTop = categoryTop;
 
             var cartItems = cartService.GetCartItems();
             List<CartItemModel> cartItemsList = new List<CartItemModel>();

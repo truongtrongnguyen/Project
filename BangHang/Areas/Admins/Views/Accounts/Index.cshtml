@@ -1,0 +1,60 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model List<AppUser>
+@{
+
+}
+
+<div class="card-header">
+    <h3 class="card-title mb-2">Danh sách tài khoản người dùng</h3>
+
+    @*    <div class="card-tools">
+    <a asp-action="Create" class="btn btn-primary m-2">Thêm mới</a>
+    </div>*@
+    <div class="card-body">
+        <table class="table table-bordered">
+            <thread>
+                <tr>
+                    <th>STT</th>
+                    <th>Ảnh dại diện</th>
+                    <th>Họ tên người dùng</th>
+                    <th>Tình trạng</th>
+                    <th>Xác nhận Email</th>
+                    <th>Số điện thoại/Email</th>
+                    <th>Số đơn hàng đã mua</th>
+                    <th></th>
+                </tr>
+            </thread>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr id="trow_@item.Id">
+                        <td>@(++ViewBag.UsersIndex)</td>
+                        <td><img src="/Contents/@ViewBag.folderImage/@item.Avata" style="width: 80px;" alt="" /></td>
+                        <td>@item.FullName</td>
+                        <td>@(item.LockoutEnd == null ? "Hoạt động" : "Bị Khóa")</td>
+                        <td>@(item.EmailConfirmed == true ? "Đã xác nhận" : "Chưa xác nhận")</td>
+                        <td>@item.PhoneNumber<br />
+                             @item.Email    
+                        </td>
+                        <td>@item.OrdersCount</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary mb-2" data-id="@item.Id">Cập nhật</button>
+                            <button class="btn btn-sm btn-danger" data-id="@item.Id">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+    </div>
+    <!-- /.card-footer-->
+</div>
+
+<partial class="mt-4" name="_PagingXTL" model="@ViewBag.pagingModel">

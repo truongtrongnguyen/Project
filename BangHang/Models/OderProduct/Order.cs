@@ -41,6 +41,8 @@ namespace BangHang.Models.OderProduct
         [Required(ErrorMessage = "Phải nhập {0}")]
         public string Email { get; set; }
 
+        public string? UserId { get; set; }
+
         public List<OrderDetail>? OrderDetails { get; set; }
     }
 }

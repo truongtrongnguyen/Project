@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BangHang.Areas.Models.SendMail;
 using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Primitives;
 
 namespace BangHang.Areas.OrderProducts.Controllers
 {
@@ -17,13 +19,19 @@ namespace BangHang.Areas.OrderProducts.Controllers
         private readonly CartService _cartService;
         private readonly IEmailSender _emailSender;
         private readonly MailSetting _mailSetting;
+        private readonly UserManager<AppUser> _userManager;
 
-        public OrderProductController(AppDbContext context, CartService cartService, IEmailSender emialSender, IOptions<MailSetting> mailSetting)
+        public OrderProductController(AppDbContext context,
+                                        CartService cartService,
+                                        IEmailSender emialSender,
+                                        IOptions<MailSetting> mailSetting,
+                                        UserManager<AppUser> userManager)
         {
             _context = context;
             _cartService = cartService;
             _emailSender = emialSender;
             _mailSetting = mailSetting.Value;
+            _userManager = userManager;
         }
 
          [HttpGet]
@@ -70,12 +78,8 @@ namespace BangHang.Areas.OrderProducts.Controllers
             return View();
         }
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            // Category Post
-            var categoryTop = _context.Categories.ToList();
-            ViewBag.categoryTop = categoryTop;
-
             decimal total = 0;
 
             var cartItems = _cartService.GetCartItems();
@@ -86,8 +90,7 @@ namespace BangHang.Areas.OrderProducts.Controllers
                             .Include(p => p.ProductPhoto)?
                             .Include(p => p.ProductCategory)
                             .ThenInclude(pc => pc.Category)
-                            .Where(p => p.Id == item.ProductId)
-                            .FirstOrDefault();
+                            .FirstOrDefault(p => p.Id == item.ProductId);
 
                 cartItemsList.Add(new CartItemModel()
                 {
@@ -104,9 +107,19 @@ namespace BangHang.Areas.OrderProducts.Controllers
                     total += cart.Price.GetValueOrDefault() * item.quantity.GetValueOrDefault();
                 }
             }
+            var order = new Order();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user != null)
+            {
+                order.CustomerName = user.FullName;
+                order.Phone = user.PhoneNumber;
+                order.Address = $"{user.DetailsAddress}, {user.Ward}, {user.District}, {user.City}";
+                order.Email = user.Email;
+            }
+
             ViewBag.TotalAmount = total;
             ViewBag.cartItems = cartItemsList;
-            return View();
+            return View(order);
         }
 
         [HttpPost]
@@ -175,14 +188,20 @@ namespace BangHang.Areas.OrderProducts.Controllers
                 _context.OrderDetails.AddRange(orderDetails);
                 _emailSender.SendEmailAsync(_mailSetting.Email, $"Đơn hàng từ {order.CustomerName}", SendMailAdmin.SendEMailAdmin(order, orderDetails));
                 _emailSender.SendEmailAsync(order.Email, $"Bạm vừa đặt hàng thành công", SendMailAdmin.SendEMailClient(order, orderDetails));
+
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                if (user != null)
+                {
+                    user.OrdersCount += 1;
+                    order.UserId = user.Id;
+                }
+
                 await _context.SaveChangesAsync();
                 _cartService.CLearCart();
                 return RedirectToAction("OrderSuccess", "Menu");
             }
-            // Category Post
-            var categoryTop = _context.Categories.ToList();
-            ViewBag.categoryTop = categoryTop;
-            return Create();
+
+            return await Create();
         }
 
         [HttpPost]

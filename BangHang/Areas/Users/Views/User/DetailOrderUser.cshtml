@@ -1,0 +1,116 @@
+﻿@using BangHang.Models.OderProduct
+@model List<Order>
+@{
+    int i = 1;
+}
+
+
+<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
+<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
+
+
+<div class="container rounded bg-white mt-50 mb-5">
+
+    @if(Model?.Count() > 0)
+    {
+        <div class="col-md-6 border-right">
+            <div class="py-3">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="text-right"><strong>Danh sách các đơn hàng đã đặt</strong></h4>
+                </div>
+            </div>
+        </div>
+        foreach(var order in Model)
+        {
+            <div class="col-md-12 mb-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"><strong>@order.DateCreate</strong></h5>
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <h6>Họ tên người đặt hàng: <strong>@order.CustomerName</strong></h6>
+                                <h6>Địa chỉ: <strong>@order.Address</strong></h6>
+                                <h6>Mã đơn hàng: <strong>@order.Code</strong></h6>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h6>Số điện thoại: <strong>@order.Phone</strong></h6>
+                                <h6>Email: <strong>@order.Email</strong></h6>
+                                <h6>Tổng tiền: <strong>@order.TotalAmount</strong></h6>
+                            </div>
+                        </div>
+                        <h6><strong>Danh sách sản phẩm: </strong></h6>
+                    </div>
+
+                    <div class="card-body" style="display: block;">
+
+                        <div class="col-12">
+                            <table class="table table-bordered">
+                                <thread>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Ảnh sản phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                    </tr>
+                                </thread>
+                                <tbody>
+                                    @foreach (var item in order.OrderDetails)
+                                    {
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>
+                                                <img style="width:100px" src="/Contents/Products/@item.ImageAvata">
+                                            </td>
+                                            <td>
+                                                <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.ProductID">@item.NameProduct</a>
+                                            </td>
+                                            <td>
+                                                @if (item.PriceSale > 0)
+                                                {
+                                                    <div class="product-price">
+                                                        <small style="text-decoration: line-through;">@item.Price</small>
+                                                        <br>
+                                                        @item.PriceSale
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="product-price">
+                                                        @item.Price
+                                                    </div>
+                                                }
+                                            </td>
+                                            <td>
+                                                @("x" + @item.Quantity.ToString())
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <!-- /.card-footer-->
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col-md-12 border-right">
+            <div class="py-3">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class=""><strong>Chưa có đơn đặt hàng nào!!!</strong></h4>
+                </div>
+            </div>
+        </div>
+    }
+
+    </div>

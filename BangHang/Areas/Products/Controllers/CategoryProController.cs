@@ -2,14 +2,17 @@
 using BangHang.Areas.Products.CategoryProModels;
 using BangHang.Models;
 using BangHang.Models.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace BangHang.Areas.Products.Controllers
 {
     [Area("Products")]
     [Route("/products/categorypro/[action]/{id?}")]
+    [Authorize(Roles = "AdminManager")]
     public class CategoryProController : Controller
     {
         private readonly AppDbContext _context;

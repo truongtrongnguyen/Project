@@ -1,0 +1,116 @@
+﻿@using BangHang.Areas.Users.Models
+@model UserDto
+<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
+<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
+
+
+<div class="container rounded bg-white mt-50 mb-5">
+    <form asp-action="Edit" method="POST" asp-controller="User" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+    <div class="row">
+
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img id="blah" class="rounded-circle mt-5" width="150px" src="/Contents/@ViewBag.folderImage/@Model.Image" alt="Ảnh không tồn tại">
+                </div>
+            Chỉnh sửa ảnh đại diện
+                <input id="imgInp" asp-for="Avata" type="file" class="btn btn-outline-dark btn-sm btn-block">
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Chỉnh sửa thông tin</h4>
+                </div>
+
+                    <div class="row mt-3">
+                        <h6 class="text-right">Thông tin chung</h6>
+                        <div class="col-md-12"><label class="labels">Họ tên</label><input asp-for="FullName" type="text" class="form-control" ></div>
+                        <div class="col-md-12"><label class="labels">Số điện thoại</label><input asp-for="PhoneNumber" type="text" class="form-control"></div>
+
+                        <div class="col-md-12">
+                            <label class="labels">Giới tính</label>
+
+                            <div class="col-md-12 row">
+                                <div class="form-check col-md-4">
+                                    <input asp-for="Sex" class="form-check-input" type="radio" id="male" value="Nam">
+                                    <label class="form-check-label" for="male">
+                                        Nam
+                                    </label>
+                                </div>
+                                <div class="form-check col-md-4">
+                                    <input asp-for="Sex" class="form-check-input" type="radio"  value="Nữ">
+                                    <label class="form-check-label" for="female">
+                                        Nữ
+                                    </label>
+                                </div>
+                                <div class="form-check col-md-4">
+                                    <input asp-for="Sex" class="form-check-input" type="radio" value="Khác">
+                                    <label class="form-check-label" for="female">
+                                        Khác
+                                    </label>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="labels">Ngày sinh</label>
+                            <input asp-for="BirthDay" type="date" class="form-control" placeholder="enter address line 2">
+                        </div>
+
+                        <h6 class="text-right mt-4">Địa chỉ</h6>
+                        <div class="col-md-12">
+                            <label class="labels">Thành phố</label>
+                            <input asp-for="City" type="text" class="form-control" >
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="labels">Quận/Huyện</label>
+                            <input asp-for="Distric" type="text" class="form-control" >
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="labels">Phường/Xã</label>
+                            <input asp-for="Wrad" type="text" class="form-control" >
+                        </div>
+
+                        <div class="col-md-12">
+                            <label class="labels">Số nhà/Đường</label>
+                            <input asp-for="AddressDetails" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="mt-5 text-center">
+                        <a asp-action="index" asp-controller="User" class="btn primary mr-5" >Quay lại</a>
+                        <button class="btn profile-button" type="submit">Lưu thông tin</button>
+                        </div>
+              
+            </div>
+        </div>
+ 
+    </div>
+    </form>
+</div>
+
+
+
+<script>
+    // Function Xử lí ảnh khi chọn
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function () {
+        readURL(this);
+    });
+</script>

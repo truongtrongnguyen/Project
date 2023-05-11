@@ -1,0 +1,45 @@
+﻿@using BangHang.Areas.Users.Models
+@model UserRegisterModel
+@{
+    Layout = "/Areas/Users/Views/User/_LayoutLogin.cshtml";
+}
+
+
+<form class="user" asp-controller="User" asp-action="Register" method="post" class="form-horizontal" role="form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" class="form-control form-control-user" />
+        <span asp-validation-for="FullName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control form-control-user" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control form-control-user" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <label asp-for="ConfirmPassword"></label>
+        <input asp-for="ConfirmPassword" class="form-control form-control-user" type="password"/>
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-user btn-block">Đăng ký</button>
+    <hr>
+
+    <p class="mb-2 mt-2 row">
+        <a asp-controller="Menu" asp-action="Index" asp-area="Menus" class="btn btn-primary mt-2 col-4">Về trang chủ</a>
+        <a asp-action="Login" asp-controller="Accounts" asp-area="Admins" class="text-center col-8">Đã có tài khoản, tiến hành đăng nhập</a>
+
+    </p>
+
+</form>

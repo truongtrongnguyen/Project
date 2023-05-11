@@ -1,0 +1,57 @@
+body {
+    background: rgb(99, 39, 120);
+    margin-top: 150px;
+}
+
+.title-page {
+    margin-top: 30px;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #BA68C8
+}
+
+.profile-button {
+    background: #ef7275;
+    box-shadow: none;
+    border: none;
+}
+
+.btn-orderdetails {
+    background: #e2dbdb;
+    box-shadow: none;
+    border: none;
+}
+
+    .btn-orderdetails:active {
+        background: rgb(195 74 77);
+        box-shadow: none
+    }
+
+
+    .profile-button:focus {
+        background: rgb(195 74 77);
+        box-shadow: none
+    }
+
+    .profile-button:active {
+        background: rgb(195 74 77);
+        box-shadow: none
+    }
+
+.back:hover {
+    color: #682773;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 11px
+}
+
+.add-experience:hover {
+    background: #BA68C8;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #BA68C8
+}

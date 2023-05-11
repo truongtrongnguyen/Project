@@ -2,6 +2,7 @@
 using BangHang.Models;
 using BangHang.Models.Product;
 using BangHang.Product.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ namespace BangHang.Areas.Controllers
 {
     [Area("Products")]
     [Route("/products/product/[action]/{id?}")]
+    [Authorize(Roles = "AdminManager")]
     public class ProductController : Controller
     {
         private readonly AppDbContext _context;

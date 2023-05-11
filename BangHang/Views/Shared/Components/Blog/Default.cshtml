@@ -21,7 +21,7 @@
 							<div class="blog_content d-flex flex-column align-items-center justify-content-center text-center">
 								<h4 class="blog_title three-line-paragraph">@item.Title</h4>
 								<span class="blog_meta ">By Admin |@item.DateCreate?.ToShortDateString()</span>
-								<a class="blog_more"asp-area="Blog" asp-action="Detail" asp-controller="Post" asp-route-id="@item.Id">Read more</a>
+							<a class="blog_more" asp-area="Users" asp-action="PostBlogDetail" asp-controller="PostBlog" asp-route-id="@item.Id">Read more</a>
 							</div>
 						</div>
 					</div>

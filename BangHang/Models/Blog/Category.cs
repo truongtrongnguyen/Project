@@ -32,5 +32,20 @@ namespace BangHang.Models.Blog
 
         [Display(Name = "Hiển thị")]
         public bool IsActive { get; set; }
+
+
+        public void ChildCategoryIDs(ICollection<Category> childcates, List<int> lists)
+        {
+            // Phương thức lấy các CategoryID  con có liên quan với nhau
+            if (childcates == null)
+            {
+                childcates = this.CategoryChildrent;
+            }
+            foreach (Category category in childcates)
+            {
+                lists.Add(category.Id.GetValueOrDefault());
+                ChildCategoryIDs(category.CategoryChildrent, lists);
+            }
+        }
     }
 }
