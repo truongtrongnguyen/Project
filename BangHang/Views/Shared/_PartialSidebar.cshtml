@@ -11,10 +11,10 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="~/lib/client/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+            <img src="~/lib/client/dist/img/admin.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Admin Manager</a>
         </div>
       </div>
 
@@ -37,6 +37,15 @@
                with font-awesome or any other icon font library -->
 
             <li class="nav-header">Chức năng</li>
+
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Accounts" asp-area="Admins" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Trang chủ
+                    </p>
+                </a>
+            </li>
 
           <li class="nav-item">
             <a asp-action="Index" asp-controller="Category" asp-area="Blog" class="nav-link">
@@ -68,21 +77,21 @@
             </ul>*@
           </li>
 
+            <li class="nav-item">
+                <a asp-action="Index" asp-controller="Accounts" asp-area="Admins" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                        Quản lí User
+                        @*<span class="right badge badge-danger">New</span>*@
+                    </p>
+                </a>
+            </li>
+
           <li class="nav-item">
             <a asp-action="Index" asp-controller="Post" asp-area="Blog" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Bài viết
-                @*<span class="right badge badge-danger">New</span>*@
-              </p>
-            </a>
-          </li>
-
-           <li class="nav-item">
-            <a href="/post" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Tin tức
                 @*<span class="right badge badge-danger">New</span>*@
               </p>
             </a>
@@ -121,17 +130,7 @@
               </li>
             </ul>
           </li>
-
-           <li class="nav-item">
-            <a href="/news" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Chức năng hệ thống
-                @*<span class="right badge badge-danger">New</span>*@
-              </p>
-            </a>
-          </li>
-          @*<li class="nav-header">EXAMPLES</li>*@
+          <li class="nav-header">EXAMPLES</li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

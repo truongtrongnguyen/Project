@@ -63,5 +63,6 @@ namespace BangHang.Models.Product
         [Display(Name = "Đã bán")]
         [Range(0, int.MaxValue)]
         public int? Sold { get; set; }
+        public decimal originalPrice { get; set; }
     }
 }

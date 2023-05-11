@@ -1,0 +1,32 @@
+﻿
+@using BangHang.Areas.Users.Models
+@model UserLoginModel
+@{
+    Layout = "/Areas/Users/Views/User/_LayoutLogin.cshtml";
+}
+
+<form class="user" asp-controller="User" asp-action="Login" method="post"  class="form-horizontal" role="form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control form-control-user" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control form-control-user" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="">
+        <button type="submit" class="btn btn-primary btn-user btn-block ">Đăng nhập</button>
+    </div>
+    <hr>
+
+    <p class="mb-2 mt-2">
+        <a asp-action="Register" asp-controller="Accounts" asp-area="Admins" class="text-center">Chưa có tài khoản, Đăng ký tài khoản mới</a>
+        <a asp-controller="Menu" asp-action="Index" asp-area="Menus" class="btn btn-primary mt-3">Về trang chủ</a>
+    </p>
+
+</form>

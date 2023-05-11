@@ -1,0 +1,59 @@
+﻿@using Microsoft.EntityFrameworkCore
+@inject AppDbContext dbContext
+
+@{
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    var connect = dbContext.Database.GetDbConnection();
+    var dbname = connect.Database;
+    var can_connect = dbContext.Database.CanConnect();
+
+}
+
+<h1>Thông tin về cơ sở dữ liệu</h1>
+<p>- Database: @dbname</p>
+<p>- Source: @connect.DataSource</p>
+<p>- State: @connect.State</p>
+
+<h4>Lấy các Migrations ở trạng thái Pending</h4>
+@foreach (var migration in dbContext.Database.GetPendingMigrations())
+{
+    <p>@migration</p>
+}
+
+
+@* Nếu có migrations ở trạng thái Pending thì sẽ xuất hiện nút bấm để UPdate lên Database *@
+@if (dbContext.Database.GetPendingMigrations().Any())
+{
+    <form method="post">
+        <button class="btn btn-success" type="submit" asp-action="Migrate" asp-controller="DbManager" asp-area="Admins">Tạo Datasbase (Cập nhật Migrations)</button>
+    </form>
+}
+
+<h4>Lấy các Migrations đã Update lên Database</h4>
+@foreach (var migration in dbContext.Database.GetAppliedMigrations())
+{
+    <p>@migration</p>
+}
+
+@if (!can_connect)
+{
+    <p class="alert alert-danger">Không có khả năng kết nối đến Database</p>
+}
+
+@if (can_connect)
+{
+    <h4>Các Table</h4>
+    await dbContext.Database.OpenConnectionAsync();
+    var table = dbContext.Database.GetDbConnection().GetSchema("Tables");  // Lấy thông tin về các table
+    <ul>
+        @foreach (System.Data.DataRow row in table.Rows)
+        {
+            <li>@row["TABLE_NAME"]</li>
+        }
+    </ul>
+
+    <a class="btn btn-danger" asp-action="DeleteDb" asp-controller="DbManager" asp-area="Admins" >Xóa Databse: @dbname</a>
+
+    <a class="btn btn-danger" asp-action="SeedData" asp-controller="DbManager" asp-area="Admins">Seed Data</a>
+}

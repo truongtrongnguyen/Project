@@ -1,0 +1,107 @@
+﻿@using BangHang.Models.Blog
+@model List<Post>
+
+@{
+    var categories = ViewBag.Category as List<Category>;
+}
+
+<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
+<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_styles.css">
+
+<div class="container rounded bg-white mt-70 mb-5">
+    <br />
+    <div class="row">
+
+        <div class="col-md-8 mb-4">
+            <h4>Danh sách các bài viết mới nhất</h4>
+            @if (Model?.Count() > 0)
+            {
+
+                foreach (var item in Model)
+                {
+                    <div class="card mb-4">
+                        <div class="card-header p-2">
+
+                            <ul class="nav nav-pills mb-2">
+                                <li class="nav-item">
+                                    <a class="nav-link active" asp-action="PostBlogCategory" asp-controller="PostBlog" asp-area="Users" asp-route-id="@item.PostCategory.Select(x => x.CategoryID).FirstOrDefault()">
+                                        @item.PostCategory.Select(x => x.Category.Title).FirstOrDefault() >>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <p class="description">@item.Title</p>
+                            <p>@item.DateCreate</p>
+                        </div><!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="active tab-pane" id="activity">
+                                    <!-- Post -->
+                                    <div class="post mb-3">
+                                        <p>
+                                            @item.DesCriptions
+                                        </p>
+
+                                        <div class="user-block mb-4">
+                                            <img class="img-circle img-bordered-sm" src="/Contents/Posts/@item.Image" alt="user image">
+                                            @* <span class="username">
+                                    <a href="#">@item.DateCreate</a>
+
+                                    </span>
+                                    <span class="description">@item.DesCriptions</span>*@
+                                        </div>
+                                        <!-- /.user-block -->
+
+
+                                        <p>
+
+                                            <span class="float-right">
+                                                <a asp-action="PostBlogDetail" asp-controller="PostBlog" asp-area="Users" asp-route-id="@item.Id" class="link-black text-sm">
+                                                    ... Xem thêm
+                                                </a>
+                                            </span>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <!-- /.tab-content -->
+                        </div><!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                }
+            }
+        </div>
+
+        <br />
+        <div class="col-md-4 mb-4">
+            <div class="">
+                <h4>Các chuyên mục bài viết</h4>
+                @if (categories?.Count() > 0)
+                {
+                    <ul>
+                        @foreach (var item in categories)
+                        {
+                            <a asp-action="PostBlogCategory" asp-controller="PostBlog" asp-area="Users" asp-route-id="@item.Id">
+                            <li>
+                               
+                                    <i class="fa fa-angle-right mb-4" aria-hidden="true"></i>
+                                    <i class="fa fa-angle-right mb-4" aria-hidden="true"></i>
+                                    &nbsp; @item.Title
+                                
+                            </li>
+                            </a>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+
+    </div>
+
+</div>
