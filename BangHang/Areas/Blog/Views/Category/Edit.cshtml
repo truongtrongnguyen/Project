@@ -10,54 +10,27 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a asp-action="Index" asp-controller="Home" class="nav-link">Trang chủ</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Danh mục</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Chỉnh sửa</a>
-        </li>
     </ul>
 }
-
-
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Thêm mới danh mục</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Chỉnh sửa</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-
     <section class="content">
-
-        <!-- Default box -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Chỉnh sửa danh mục</h3>
             </div>
             <div class="card-body">
                 <div class="bs-stepper-content">
-
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <form asp-action="Edit">
                             <input type="hidden" asp-for="Id"/>
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                        @if (ViewBag.CategoryParentID is not null)
+                        {
                             <div class="form-group">
                                 <label asp-for="CategoryParentID" class="control-label"></label>
                                 <select asp-for="CategoryParentID" class="form-control" asp-items="ViewBag.CategoryParentID"></select>
                                 <span asp-validation-for="CategoryParentID" class="text-danger"></span>
                             </div>
+                        }
 
                             <div class="form-group">
                                 <label asp-for="@Model.Title" class="control-label"></label>
@@ -92,7 +65,7 @@
 
                             <div class="form-group">
                                 <label asp-for="@Model.SeoDesCriptions" class="control-label"></label>
-                                <input asp-for="@Model.SeoDesCriptions" class="form-control" />
+                            <textarea asp-for="@Model.SeoDesCriptions" rows="5" class="form-control"></textarea>
                                 <span asp-validation-for="@Model.SeoDesCriptions" class="text-danger"></span>
                             </div>
 
@@ -111,13 +84,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-        </div>
-        <!-- /.card-footer-->
-        <!-- /.card -->
     </section>
-
 
     @{
     var summernote1 = new App.Models.Summernote("#DesCriptions", true);

@@ -37,7 +37,7 @@ Side note: I know that this style of nesting in SASS doesn't result in the most 
 
 .product-line-price {
     float: left;
-    width: 12%;
+    width: 10%;
     text-align: right;
 }
 
@@ -115,6 +115,7 @@ label {
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid #eee;
+    height: 130px !important;
 }
 
     .product .product-image1 {

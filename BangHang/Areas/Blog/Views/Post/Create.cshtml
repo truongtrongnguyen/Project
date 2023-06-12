@@ -10,120 +10,82 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a asp-action="Index" asp-controller="Home" class="nav-link">Trang chủ</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Bài viết</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Thêm mới</a>
-        </li>
     </ul>
 }
 
+<section class="content">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin thêm mới bài viết</h3>
+        </div>
+        <div class="card-body">
+            <div class="bs-stepper-content">
 
+                <div class="col-md-12">
+                    <form asp-action="Create" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Thêm mới bài viết</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Thêm mới</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-
-    <section class="content">
-
-        <!-- Default box -->
-        <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">Thông tin thêm mới bài viết</h3>
-            </div>
-            <div class="card-body">
-                <div class="bs-stepper-content">
-
-                    <div class="col-md-8">
-                        <form asp-action="Create" enctype="multipart/form-data">
-                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+                        @if (ViewBag.Categories is not null)
+                        {
                             <div class="form-group">
                                 <label asp-for="CategoryIDs" class="control-label"></label>
                                 <select asp-for="CategoryIDs" asp-items="ViewBag.Categories" class="w-100" multiple="multiple"></select>
                                 <span asp-validation-for="CategoryIDs" class="text-danger"></span>
                             </div>
+                        }
+                        <div class="form-group">
+                            <label asp-for="@Model.Title" class="control-label"></label>
+                            <input asp-for="@Model.Title" class="form-control" />
+                            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                        </div>
 
-                            <div class="form-group">
-                                <label asp-for="@Model.Title" class="control-label"></label>
-                                <input asp-for="@Model.Title" class="form-control" />
-                                <span asp-validation-for="@Model.Title" class="text-danger"></span>
+                        <div class="form-group">
+                            <label asp-for="@Model.Slug" class="control-label"></label>
+                            <input asp-for="@Model.Slug" class="form-control" />
+                            <span asp-validation-for="@Model.Slug" class="text-danger"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group form-check col-4 ">
+                                <label class="form-check-label"></label>
+                                <input asp-for="IsActive" class="form-check-input">@Html.DisplayNameFor(model => model.IsActive)
                             </div>
 
-                            <div class="form-group">
-                                <label asp-for="@Model.Slug" class="control-label"></label>
-                                <input asp-for="@Model.Slug" class="form-control" />
-                                <span asp-validation-for="@Model.Slug" class="text-danger"></span>
+                            <div class="form-group form-check col-4">
+                                <label class="form-check-label"></label>
+                                <input asp-for="IsHot" class="form-check-input">@Html.DisplayNameFor(model => model.IsHot)
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="form-group form-check col-4 ">
-                                    <label class="form-check-label"></label>
-                                    <input asp-for="IsActive" class="form-check-input">@Html.DisplayNameFor(model => model.IsActive)
-                                </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.Avata" class="form-label"></label>
+                            <input type='file' id="imgInp" asp-for="Avata" />
+                            <img id="blah" src="#" style="width: 150px; height: 150px;" />
+                        </div>
 
-                                <div class="form-group form-check col-4">
-                                    <label class="form-check-label"></label>
-                                    <input asp-for="IsHot" class="form-check-input">@Html.DisplayNameFor(model => model.IsHot)
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label asp-for="@Model.DesCriptions" class="control-label"></label>
+                            <input asp-for="@Model.DesCriptions" class="form-control" />
+                            <span asp-validation-for="@Model.DesCriptions" class="text-danger"></span>
+                        </div>
 
-@*                            <div class="form-group">
-                                <label asp-for="@Model.Avata" class="form-label"></label>
-                                <input asp-for="@Model.Avata" class="form-control" type="file" />
-                            </div>*@
+                        <div class="form-group">
+                            <label asp-for="@Model.Contents" class="control-label"></label>
+                            <textarea asp-for="@Model.Contents" rows="5" class="form-control"></textarea>
+                            <span asp-validation-for="@Model.Contents" class="text-danger"></span>
+                        </div>
 
-
-                            <div class="form-group">
-                                <label asp-for="@Model.Avata" class="form-label"></label>
-                                <input type='file' id="imgInp" asp-for="Avata"/>
-                                <img id="blah" src="#" style="width: 150px; height: 150px;"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="@Model.DesCriptions" class="control-label"></label>
-                                <input asp-for="@Model.DesCriptions" class="form-control" />
-                                <span asp-validation-for="@Model.DesCriptions" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="@Model.Contents" class="control-label"></label>
-                                <textarea asp-for="@Model.Contents" rows="5" class="form-control"></textarea>
-                                <span asp-validation-for="@Model.Contents" class="text-danger"></span>
-                            </div>
-
-
-
-                            <div class="form-group mt-2">
-                                <input type="submit" value="Tạo mới" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-group mt-2">
+                            <input type="submit" value="Tạo mới" class="btn btn-primary">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-        </div>
-        <!-- /.card-footer-->
-        <!-- /.card -->
-    </section>
+    </div>
+</section>
 
-    @{
+@{
     var summernote1 = new App.Models.Summernote("#Contents", true);
 }
 <partial name="_PartialSummernote" model="@summernote1">
@@ -145,7 +107,7 @@
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
 
-                    reader.onload = function(e) {
+                    reader.onload = function (e) {
                         $('#blah').attr('src', e.target.result);
                     }
 
@@ -153,7 +115,7 @@
                 }
             }
 
-            $("#imgInp").change(function() {
+            $("#imgInp").change(function () {
                 readURL(this);
             });
 

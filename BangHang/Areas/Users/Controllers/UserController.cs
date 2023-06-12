@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using NuGet.Protocol;
 
 namespace BangHang.Areas.Users.Controllers
 {
@@ -16,6 +15,7 @@ namespace BangHang.Areas.Users.Controllers
         private readonly AppDbContext _context;
         public const string folderImage = "UsersImage";
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly string directoryFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage);
         public UserController(UserManager<AppUser> userManager,
                                 AppDbContext context,
                                 SignInManager<AppUser> signInManager)
@@ -100,8 +100,6 @@ namespace BangHang.Areas.Users.Controllers
                     user.DetailsAddress = request.AddressDetails;
 
                     // check folder exists, if folder not exists for create new folder
-                    string directoryFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage);
-
                     if (!Directory.Exists(directoryFolder))
                     {
                         Directory.CreateDirectory(directoryFolder);
@@ -111,7 +109,7 @@ namespace BangHang.Areas.Users.Controllers
                     {
                         if (!string.IsNullOrEmpty(user.Avata))
                         {
-                            var deleteAvata = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", user.Avata);
+                            var deleteAvata = Path.Combine(directoryFolder, user.Avata);
                             if (!Directory.Exists(deleteAvata))
                             {
                                 System.IO.File.Delete(deleteAvata);
@@ -120,7 +118,7 @@ namespace BangHang.Areas.Users.Controllers
 
                         var fileName = Path.GetRandomFileName() +
                                         Path.GetExtension(request.Avata.FileName);
-                        var file = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage, fileName);
+                        var file = Path.Combine(directoryFolder, fileName);
 
                         using (FileStream fileStream = new FileStream(file, FileMode.Create))
                         {
@@ -196,9 +194,15 @@ namespace BangHang.Areas.Users.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, false, lockoutOnFailure: true);
+                var user = await _userManager.FindByEmailAsync(request.Email);
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "Tài khoản không tồn tại, vui lòng kiểm tra lại");
+                    return View();
+                }
+                var result = await _signInManager.PasswordSignInAsync(user.Email, request.Password, false, lockoutOnFailure: true);
 
-                if (result == null)
+                if (!result.Succeeded)
                 {
                     ModelState.AddModelError("", "Sai mật khẩu hoặc tài khoản không tồn tại, vui lòng kiểm tra lại");
                     return View();
@@ -209,7 +213,10 @@ namespace BangHang.Areas.Users.Controllers
                     ModelState.AddModelError("", "Tài khoản đã bị khóa");
                     return View();
                 }
-                return RedirectToAction("Index", "Menu", new { area = "Menus" });
+                if (result is not null)
+                {
+                    return RedirectToAction("Index", "Menu", new { area = "Menus" });
+                }
             }
 
             return View(request);
@@ -253,8 +260,6 @@ namespace BangHang.Areas.Users.Controllers
                     FullName = request.FullName,
                 };
                 var result = await _userManager.CreateAsync(newUser, request.Password);
-
-
 
                 if (result.Succeeded)
                 {

@@ -84,9 +84,6 @@
                                 <span asp-validation-for="@Model.TypeProduct" class="text-danger"></span>
                             </div>
                         </div>
-
-
-
                         <div class="form-group">
                             <label asp-for="@Model.DesCriptions" class="control-label"></label>
                             <input asp-for="@Model.DesCriptions" class="form-control" />
@@ -100,9 +97,6 @@
                         </div>
                         <!-- /.post -->
                     </div>
-
-
-                    <!-- /.tab-pane -->
                     <div class="tab-pane" id="timeline">
                         <!-- The timeline -->
                         <div class="col-md-12">
@@ -112,7 +106,6 @@
                                     <label>Chọn tất cả</label>
                                 <a class="btn btn-danger btnDelete right ml-4">Xóa</a>
                             </div>
-
                             <table>
                                 <thead>
                                 </thead>
@@ -122,7 +115,6 @@
                                         <div class="row " id="ImageCurrent">
                                             @foreach (var item in Model.ProductPhoto.ToList())
                                             {
-
                                                 <div class="col-4" id="ImageDelete_@item.Id">
                                                     <input type="checkbox" id="myCheckbox" class="m-2 imageCheckbox" value="@item.Id">
                                                     <label for="myCheckbox"></label>
@@ -135,7 +127,6 @@
                                 </tbody>
                             </table>
                             <hr />
-
                             <div class="m-4">
                                 <label class="control-label">Thêm ảnh mới</label>
                                 <style>
@@ -149,10 +140,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
-
-
-
                     <div class="tab-pane" id="settings">
 
                         <div class="form-group row">
@@ -173,20 +160,13 @@
                             <span asp-validation-for="SeoDesCriptions" class="text-danger"></span>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
                     <div class="form-group m-4">
                         <input type="submit" value="Lưu thông tin" class="btn btn-primary">
                     </div>
                 </div>
-
-                <!-- /.tab-content -->
             </div><!-- /.card-body -->
-
-
         </form>
     </div>
-
-    <!-- /.card -->
 </div>
 
 @{

@@ -216,6 +216,5 @@ namespace BangHang.Areas.OrderProducts.Controllers
             }
             return Json(new { success = false, payment = order?.Payment });
         }
-
     }
 }

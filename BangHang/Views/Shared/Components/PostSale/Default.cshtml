@@ -5,7 +5,9 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="main_slider" style="background-image:url(/Contents/Posts/@Model.Image">
+@if(Model is not null)
+{
+	<div class="main_slider" style="background-image:url(/Contents/Posts/@Model.Image">
 		<div class="container fill_height">
 			<div class="row align-items-center fill_height">
 				<div class="col">
@@ -18,5 +20,6 @@
 			</div>
 		</div>
 	</div>
+}
 
 

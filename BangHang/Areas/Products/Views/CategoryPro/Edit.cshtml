@@ -10,37 +10,9 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a asp-action="Index" asp-controller="Home" class="nav-link">Trang chủ</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Danh mục</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Chỉnh sửa</a>
-        </li>
     </ul>
 }
-
-
-
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Chỉnh sửa danh mục sản phẩm</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Chỉnh sửa</li>
-                    </ol>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-
-
     <section class="content">
-
-        <!-- Default box -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Thông tin chỉnh sửa danh mục sản phẩm</h3>
@@ -48,7 +20,7 @@
             <div class="card-body">
                 <div class="bs-stepper-content">
 
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <form asp-action="Edit" enctype="multipart/form-data">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Id"/>
@@ -108,7 +80,7 @@
                             </div>
 
                            <div class="form-group mt-2">
-                                 <a asp-action="Index">Quay lại</a>
+                                 <a asp-action="Index" class="mr-5">Quay lại</a>
                                 <input type="submit" value="Lưu" class="btn btn-primary">
                             </div>
                         </form>
@@ -116,11 +88,6 @@
                 </div>
             </div>
         </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-        </div>
-        <!-- /.card-footer-->
-        <!-- /.card -->
     </section>
 
     @{

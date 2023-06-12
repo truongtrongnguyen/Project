@@ -2,9 +2,6 @@
     Layout = "/Views/Shared/_LayoutHome.cshtml";
 }
 
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
-
 @*<!-- MenuTop -->
 @RenderSection("MenuTop", false)*@
 <body>
@@ -21,7 +18,23 @@
 @RenderSection("PostOutstanding", false)
 
 <!-- Best Sellers -->
-@RenderSection("ProductsIsSale", false)
+    <div class="best_sellers">
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="section_title new_arrivals_title">
+                        <h2>Best Sellers</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @RenderSection("ProductsIsSale", false)
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 <!-- Blogs -->
 @RenderSection("Blog", false)

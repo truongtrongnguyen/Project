@@ -16,6 +16,8 @@ namespace BangHang.Areas.Blog.Controllers
     public class PostController : Controller
     {
         private readonly AppDbContext _context;
+        public const string folderImage = "Posts";
+        private readonly string directoryFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage);
         public PostController(AppDbContext context)
         {
             _context = context;
@@ -29,6 +31,7 @@ namespace BangHang.Areas.Blog.Controllers
                         .ThenInclude(p => p.Category)
                         .OrderByDescending(x => x.DateCreate)
                         .ToList();
+            ViewBag.folderImage = folderImage;
             return View(posts);
         }
 
@@ -60,7 +63,13 @@ namespace BangHang.Areas.Blog.Controllers
                     avataName = Path.GetFileName(Path.GetRandomFileName())
                            + Path.GetExtension(postModel.Avata.FileName);
                 }
-                var file = Path.Combine("Uploads", "Posts", avataName);
+                // check folder exists, if folder not exists for create new folder
+                if (!Directory.Exists(directoryFolder))
+                {
+                    Directory.CreateDirectory(directoryFolder);
+                }
+
+                var file = Path.Combine(directoryFolder, avataName);
 
                 var post = new Post();
                 post.Title = postModel.Title;
@@ -118,6 +127,7 @@ namespace BangHang.Areas.Blog.Controllers
             {
                 return Content("Khong tim thay bai viet");
             }
+
             var postModel = new PostModel()
             {
                 Title = post.Title,
@@ -130,6 +140,7 @@ namespace BangHang.Areas.Blog.Controllers
                 CategoryIDs =  post.PostCategory.Select(c => c.CategoryID.GetValueOrDefault()).ToArray(),
                 Id = post.Id
             };
+            ViewBag.folderImage = folderImage;
             return View(postModel);
         }
         [HttpPost]
@@ -150,32 +161,39 @@ namespace BangHang.Areas.Blog.Controllers
                 canUpdate = false;
                 return Content("Khong tim thay bai viet");
             }
+
             if (ModelState.IsValid && canUpdate)
             {
                 if(String.IsNullOrEmpty(postModel.Slug))
                 {
                     postModel.Slug = AppUtilities.GenerateSlug(postModel.Title);
                 }
+
                 if(_context.Posts.Any(p => p.Slug == postModel.Slug && p.Id != postModel.Id))
                 {
                     canUpdate = false;
                     ModelState.AddModelError("Slug", "Phải chọn danh mục khác");
                 }
+
                 if (postModel.Avata != null)
                 {
                     // Trường hợp khi create mà không thêm ảnh thì nó sẽ không tiến hành hành vi xóa
-                    if(!String.IsNullOrEmpty(post.Image))
+                    if (!String.IsNullOrEmpty(post.Image))
                     { 
-                        var UrlDeleteAvata = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", "Posts", post.Image);
+                        var UrlDeleteAvata = Path.Combine(directoryFolder, post.Image);
                         System.IO.File.Delete(UrlDeleteAvata);
                     }
+
                      var avataName = Path.GetRandomFileName()
                                   + Path.GetExtension(postModel.Avata.FileName);
-                    var file = Path.Combine("Uploads", "Posts", avataName);
+
+                    var file = Path.Combine(directoryFolder, avataName);
+
                     using (var streamFile = new FileStream(file, FileMode.Create))
                     {
                         await postModel.Avata.CopyToAsync(streamFile);
                     }
+
                     post.Image = avataName;
                 }
                 if(postModel.CategoryIDs == null)
@@ -188,6 +206,7 @@ namespace BangHang.Areas.Blog.Controllers
                 var AddCategoryID = postModel.CategoryIDs.Where(p => !OldCategoryID.Contains(p));
 
                 _context.PostCategory.RemoveRange(RemoveCategoryID);
+
                 foreach (var item in AddCategoryID.ToList())
                 {
                     _context.PostCategory.Add(new PostCategory()
@@ -223,6 +242,12 @@ namespace BangHang.Areas.Blog.Controllers
                         .FirstOrDefault();
             if (post != null)
             {
+                if (!String.IsNullOrEmpty(post.Image))
+                {
+                    var UrlDeleteAvata = Path.Combine(directoryFolder, post.Image);
+                    System.IO.File.Delete(UrlDeleteAvata);
+                }
+
                 _context.Posts.Remove(post);
                 _context.SaveChanges();
                 return Json(new { success = true });
@@ -242,6 +267,7 @@ namespace BangHang.Areas.Blog.Controllers
             {
                 return Content("Khong tim thay bai viet");
             }
+            ViewBag.folderImage = folderImage;
             return View(post);
         }
     }

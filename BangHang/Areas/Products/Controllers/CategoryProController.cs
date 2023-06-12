@@ -17,6 +17,7 @@ namespace BangHang.Areas.Products.Controllers
     {
         private readonly AppDbContext _context;
         public const string folderImage = "CategoryPro";
+        private readonly string directoryFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage);
         public CategoryProController(AppDbContext context)
         {
             _context = context;
@@ -93,14 +94,15 @@ namespace BangHang.Areas.Products.Controllers
                 if (categoryModel.Avata != null)
 				{
                     // check folder exists, if folder not exists for create new folder
-                    string directoryFolder = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage);
                     if(!Directory.Exists(directoryFolder))
                     {
                         Directory.CreateDirectory(directoryFolder);
                     }
+
                     fileName = Path.GetRandomFileName()
                                     + Path.GetExtension(categoryModel.Avata.FileName);
-                    var file = Path.Combine(Directory.GetCurrentDirectory(),"Uploads", folderImage, fileName);
+                    var file = Path.Combine(directoryFolder, fileName);
+
                     using (var fileStream = new FileStream(file, FileMode.Create))
 					{
                         await categoryModel.Avata.CopyToAsync(fileStream);
@@ -216,12 +218,12 @@ namespace BangHang.Areas.Products.Controllers
 					{
                         if (categoryPro.Image != null)
                         {
-                            var pathDelete = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage, categoryPro.Image);
+                            var pathDelete = Path.Combine(directoryFolder, categoryPro.Image);
                             System.IO.File.Delete(pathDelete);
                         }
                         var fileName = Path.GetRandomFileName()
                                         + Path.GetExtension(categoryModel.Avata.FileName);
-                        var file = Path.Combine(Directory.GetCurrentDirectory(), "Uploads", folderImage, fileName);
+                        var file = Path.Combine(directoryFolder, fileName);
                         using (var fileStream = new FileStream(file, FileMode.Create))
 						{
                             await categoryModel.Avata.CopyToAsync(fileStream);
@@ -258,6 +260,7 @@ namespace BangHang.Areas.Products.Controllers
                               .Include(c => c.CategoryChildrent)
                               .Where(c => c.Id == id)
                               .FirstOrDefault();
+            ViewBag.folderImage = folderImage;
             return View(categoryPro);
         }
 
@@ -268,6 +271,12 @@ namespace BangHang.Areas.Products.Controllers
                             .Where(c => c.Id == id).FirstOrDefault();
             if (category != null)
             {
+                if (category.Image != null)
+                {
+                    var pathDelete = Path.Combine(directoryFolder, category.Image);
+                    System.IO.File.Delete(pathDelete);
+                }
+
                 _context.CategoriesPro.Remove(category);
                 _context.SaveChanges();
                 return Json(new { success = true });

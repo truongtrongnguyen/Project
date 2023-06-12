@@ -29,6 +29,7 @@ namespace BangHang.Areas.Blog.Controllers
             var qr1 = qr.ToList().Where(c => c.CategoryParent == null).ToList();
             return View(qr1);
         }
+
         private void CreateSelectItem(List<Category> source, List<Category> des, int level)
         {
             string prefix = string.Concat(Enumerable.Repeat("--", level));
@@ -65,7 +66,6 @@ namespace BangHang.Areas.Blog.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-
             var selectItem = LoadSelectListItem();
             ViewData["CategoryParentID"] = selectItem;
             return View();

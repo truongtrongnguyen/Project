@@ -14,7 +14,6 @@ namespace BangHang.Areas.Menus.Controllers
         private readonly AppDbContext _context;
         private readonly CartService cartService;
 
-
         public MenuController(AppDbContext context, CartService cartservice)
         {
             _context = context;
@@ -37,7 +36,6 @@ namespace BangHang.Areas.Menus.Controllers
                             .Take(6)
                             .ToList();
             ViewBag.CategoryPro = categoryPro;
-
             
             var Products = _context.Products
                                     .Include(p => p.ProductPhoto)
@@ -125,45 +123,6 @@ namespace BangHang.Areas.Menus.Controllers
             }
             return View();
         }
-
-        //[HttpGet]
-        //public IActionResult ShoppingPay()
-        //{
-        //    decimal total = 0;
-        //    // Category Post
-        //    var categoryTop = _context.Categories.ToList();
-        //    ViewBag.categoryTop = categoryTop;
-
-        //    var cartItems = cartService.GetCartItems();
-        //    List<CartItemModel> cartItemsList = new List<CartItemModel>();
-        //    foreach (var item in cartItems)
-        //    {
-        //        var cart = _context.Products
-        //                    .Include(p => p.ProductPhoto)
-        //                    .Include(p => p.ProductCategory)
-        //                    .ThenInclude(pc => pc.Category)
-        //                    .Where(p => p.Id == item.ProductId)
-        //                    .FirstOrDefault();
-        //        cartItemsList.Add(new CartItemModel()
-        //        {
-        //            Product = cart,
-        //            quantity = item.quantity
-        //        });
-
-        //        decimal totalitem = 0;
-        //        if (cart?.PriceSale > 0)
-        //        {
-        //            total = cart.PriceSale.GetValueOrDefault() * item.quantity.GetValueOrDefault();
-        //        }
-        //        else
-        //        {
-        //            total = cart.Price.GetValueOrDefault() * item.quantity.GetValueOrDefault();
-        //        }
-        //    }
-        //    ViewBag.cartItems = cartItemsList;
-        //    ViewBag.total = total;
-        //    return View();
-        //}
 
         [HttpGet]
         public async Task<IActionResult> ShoppingCart()

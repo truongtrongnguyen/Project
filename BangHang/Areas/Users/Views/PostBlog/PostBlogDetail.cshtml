@@ -1,32 +1,24 @@
 ﻿@using BangHang.Models.Blog
 @model Post
 
-<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
-<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_styles.css">
-
-<div class="container rounded bg-white mt-50 mb-5">
-    <div class="row">
-        <div class="col">
-
-            <!-- Breadcrumbs -->
-
-            <div class="breadcrumbs d-flex flex-row align-items-center mb-0">
-                <ul>
-                    <li><a asp-action="Index" asp-controller="PostBlog" asp-area="Users">Blog</a></li>
-                    <li><a href="categories.html"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
-                </ul>
+@if(Model is not null)
+{
+    <div class="container rounded bg-white mt-50 mb-5">
+        <div class="row">
+            <div class="col">
+                <div class="breadcrumbs d-flex flex-row align-items-center mb-0">
+                    <ul>
+                        <li><a asp-action="Index" asp-controller="PostBlog" asp-area="Users">Blog</a></li>
+                        <li><a href="categories.html"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Title</a></li>
+                    </ul>
+                </div>
             </div>
-
         </div>
-    </div>
-    <br />
-    <div>
-        <h4 class="text-center mb-4">@Model.DesCriptions</h4>
-        @Html.Raw(Model.Contents)
-    </div>
+        <br />
+        <div>
+            <h4 class="text-center mb-4">@Model.DesCriptions</h4>
+            @Html.Raw(Model.Contents)
+        </div>
 
-</div>
+    </div>
+}

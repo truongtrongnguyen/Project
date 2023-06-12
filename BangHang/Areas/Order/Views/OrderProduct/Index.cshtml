@@ -2,9 +2,6 @@
 @using BangHang.Models.Services
 
 @model List<Order>
-@{
- 
-}
 
 <div class="card-header">
     <h3 class="card-title">Danh sách đơn dặt hàng</h3>
@@ -23,36 +20,29 @@
                 </tr>
             </thread>
             <tbody>
-                @foreach (var item in Model)
+                @if(Model?.Count > 0)
                 {
-                    
-                    <tr id="trow_@item.Id">
-                        <td>@(++ViewBag.OrderIndex)</td>
-                        <td>
-                            <a asp-action="OrderDetail" asp-controller="OrderProduct" asp-area="Order" asp-route-id="@item.Id">
-                                @item.Code
-                            </a>
-                         </td>
-                        <td>@item.CustomerName</td>
-                        <td>@item.Phone</td>
-                        <td>@item.TotalAmount</td>
-                        <td id="checkout_items_@item.Id"d>@(item.Payment == 1 ? "Chờ thanh toán" : "Đã thanh toán")</td>
-                        <td><button class="btn btn-sm btn-primary btnCapNhat " data-id="@item.Id" >Cập nhật</button></td>
-                    </tr>
+                foreach (var item in Model)
+                {
 
-
+                <tr id="trow_@item.Id">
+                    <td>@(++ViewBag.OrderIndex)</td>
+                    <td>
+                        <a asp-action="OrderDetail" asp-controller="OrderProduct" asp-area="Order" asp-route-id="@item.Id">
+                            @item.Code
+                        </a>
+                    </td>
+                    <td>@item.CustomerName</td>
+                    <td>@item.Phone</td>
+                    <td>@item.TotalAmount</td>
+                    <td id="checkout_items_@item.Id" d>@(item.Payment == 1 ? "Chờ thanh toán" : "Đã thanh toán")</td>
+                    <td><button class="btn btn-sm btn-primary btnCapNhat " data-id="@item.Id">Cập nhật</button></td>
+                </tr>
+                }
                 }
             </tbody>
         </table>
-
-
     </div>
-
-
-    <!-- /.card-body -->
-    <div class="card-footer">
-    </div>
-    <!-- /.card-footer-->
 </div>
    <partial class="mt-4" name="_PagingXTL" model="@ViewBag.pagingModel">
 
@@ -80,9 +70,7 @@
               <button type="button" class="btn btn-primary btnLuu" data-dismiss="modal">Lưu</button>
             </div>
           </div>
-          <!-- /.modal-content -->
         </div>
-        <!-- /.modal-dialog -->
       </div>
 
 @section Scripts {

@@ -1,8 +1,5 @@
 ﻿@using BangHang.Models.Product
 @model List<CategoryPro>
-@{
-
-}
 
 <div class="card-header">
     <h3 class="card-title">Danh sách danh mục</h3>
@@ -23,17 +20,16 @@
                 </tr>
             </thread>
             <tbody>
-                    @foreach (var item in Model)
+                    @if(Model?.Count > 0)
+                {
+                    foreach (var item in Model)
                     {
-                         await RenderCategory(item, 0);
+                        await RenderCategory(item, 0);
                     }
+                }
             </tbody>
         </table>
     </div>
-    <!-- /.card-body -->
-    <div class="card-footer">
-    </div>
-    <!-- /.card-footer-->
 </div>
 
 @{
@@ -83,7 +79,6 @@ $('body').on('click', '.btnDelete', function() {
             }
         });
     }
-
 });
     </script>
 }

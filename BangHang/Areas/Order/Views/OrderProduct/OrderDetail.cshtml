@@ -5,17 +5,13 @@
 @{
     Layout = "/Views/Shared/_LayoutAdmin.cshtml";
     int i = 1;
-
 }
-
 
 <div class="container single_product_container mb-2">
     <div class="text-center col-12 mt-4">
         <h1>Chi tiết đơn hàng</h1>
     </div>
-
     <hr />
-
     <div class="card">
         <div class="card-header">
             <h3>Thông tin khách hàng</h3>
@@ -98,48 +94,44 @@
                             </tr>
                         </thread>
                         <tbody>
-                            @foreach (var item in Model.OrderDetails)
+                            @if (Model.OrderDetails?.Count > 0)
                             {
-                                <tr>
-                                    <td>@(i++)</td>
-                                    <td>
-                                        <img style="width:100px" src="/Contents/Products/@item.ImageAvata">
-                                    </td>
-                                    <td>
-                                        <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.ProductID">@item.NameProduct</a>
-                                    </td>
-                                    <td>
-                                        @if (item.PriceSale > 0)
-                                        {
-                                            <div class="product-price">
-                                                <small style="text-decoration: line-through;">@item.Price</small>
-                                                <br>
-                                                @item.PriceSale
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="product-price">
-                                                @item.Price
-                                            </div>
-                                        }
-                                    </td>
-                                    <td>
-                                        @("x" + @item.Quantity.ToString())
-                                    </td>
-                                </tr>
+                                foreach (var item in Model.OrderDetails)
+                                {
+                                    <tr>
+                                        <td>@(i++)</td>
+                                        <td>
+                                            <img style="width:100px" src="/Contents/Products/@item.ImageAvata">
+                                        </td>
+                                        <td>
+                                            <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.ProductID">@item.NameProduct</a>
+                                        </td>
+                                        <td>
+                                            @if (item.PriceSale > 0)
+                                            {
+                                                <div class="product-price">
+                                                    <small style="text-decoration: line-through;">@item.Price</small>
+                                                    <br>
+                                                    @item.PriceSale
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="product-price">
+                                                    @item.Price
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @("x" + @item.Quantity.ToString())
+                                        </td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
-
 </div>
-
-
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

@@ -2,7 +2,6 @@
 @model List<Post>
 @{
     var i = 1;
-    var str ="";
 }
 
 <div class="card-header">
@@ -26,37 +25,37 @@
                 </tr>
             </thread>
             <tbody>
-                @foreach (var item in Model)
+                @if(Model?.Count > 0)
                 {
-                    <tr id="trow_@item.Id">
-                        <td>@(i++)</td>
-                        <td><img src="~/Contents/Posts/@item.Image" style="width: 50px; height: 50px;"  alt=""/></td>
-                        <td>
-                            @item.Title
-                            <br>
-                            <small>@String.Join(", ", item.PostCategory.Select(c => c.Category.Title))</small>
-                        </td>
-                        <td>
-                            @Html.DisplayFor(model => item.IsActive)
-                        </td>
-                         <td>
-                            @Html.DisplayFor(model => item.IsHot)
-                        </td>
-                        <td>@item.Slug</td>
-                        <td>
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Sửa</a>
-                            <a class="btn btn-secondary" asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
-                            <a class="btn btn-danger btnDelete" data-id="@item.Id" href="#">Xóa</a>
-                        </td>
-                    </tr>
+                    foreach (var item in Model)
+                    {
+                        <tr id="trow_@item.Id">
+                            <td>@(i++)</td>
+                            <td><img src="~/Contents/@ViewBag.folderImage/@item.Image" style="width: 50px; height: 50px;" alt="" /></td>
+                            <td>
+                                @item.Title
+                                <br>
+                                <small>@String.Join(", ", item.PostCategory.Select(c => c.Category.Title))</small>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.IsActive)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.IsHot)
+                            </td>
+                            <td>@item.Slug</td>
+                            <td>
+                                <a class="btn btn-primary m-1" asp-action="Edit" asp-route-id="@item.Id">Sửa</a>
+                                <a class="btn btn-secondary m-1" asp-action="Detail" asp-route-id="@item.Id">Chi tiết</a>
+                                <a class="btn btn-danger btnDelete m-1" data-id="@item.Id" href="#">Xóa</a>
+                            </td>
+                        </tr>
+                    }
                 }
             </tbody>
         </table>
     </div>
     <!-- /.card-body -->
-    <div class="card-footer">
-    </div>
-    <!-- /.card-footer-->
 </div>
 
 
@@ -78,7 +77,6 @@
                     }
                 });
             }
-
         });
     </script>
 }

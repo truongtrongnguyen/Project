@@ -17,7 +17,6 @@ namespace BanHang.Areas.FileManager.Controllers
             return View();
         }
 
-
         IWebHostEnvironment _env;
         public FileManagerController(IWebHostEnvironment env) => _env = env;
 

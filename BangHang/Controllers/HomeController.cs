@@ -21,10 +21,6 @@ namespace BangHang.Controllers
             return RedirectToAction("Index", "Menu", new { area = "Menus" });
         }
 
-        public IActionResult ProductHomeSale()
-        {
-            return RedirectToAction("Index");
-        }
 
         public IActionResult Privacy()
         {

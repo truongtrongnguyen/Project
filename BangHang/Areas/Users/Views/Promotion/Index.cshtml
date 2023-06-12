@@ -1,15 +1,6 @@
 ﻿@using BangHang.Models.Product
 @model List<Products>
 
-<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
-<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_styles.css">
-<script src="~/lib/menu/js/shoppingCart.js"></script>
-
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
 
 <div class="container rounded bg-white ">
    
@@ -20,31 +11,32 @@
                 <h4>Danh sách các sản phẩm đang giảm giá</h4>
             <div class="col-md-12">
                 <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
-
-                    <!-- Product 1 -->
-                    @foreach (var item in Model)
-                    {
-                            <div class="product-item @String.Join(" ", item.ProductCategory.Select(c => c.Category.Slug))" style="position: absolute; left: 0px; top: 0px;">
-                                <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.Id">
-                                    <div class="product discount product_filter" style="border-right: 1px solid rgb(233, 233, 233);">
-                                        <div class="product_image">
-                                            <img src="~/Contents/Products/@(item.ProductPhoto?.First().Name)" alt="">
+                    @if(Model?.Count > 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <div class="product-item @String.Join(" ", item.ProductCategory.Select(c => c.Category.Slug))" style="position: absolute; left: 0px; top: 0px;">
+                                    <a asp-action="ProductSingle" asp-controller="Menu" asp-area="Menus" asp-route-id="@item.Id">
+                                        <div class="product discount product_filter" style="border-right: 1px solid rgb(233, 233, 233);">
+                                            <div class="product_image">
+                                                <img src="~/Contents/Products/@(item.ProductPhoto?.First().Name)" alt="">
+                                            </div>
+                                            <div class="favorite favorite_left"></div>
+                                            @if (item.SeoKeyword != null)
+                                            {
+                                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>@item.SeoKeyword</span></div>
+                                            }
+                                            <div class="product_info">
+                                                <h6 class="product_name">@item.Title</h6>
+                                                <div class="product_price">@string.Format(new System.Globalization.CultureInfo("vi-VN",false), "{0:c0}", item.PriceSale)<span>@string.Format(new System.Globalization.CultureInfo("vi-VN",false), "{0:c0}", item.Price)</span></div>
+                                            </div>
                                         </div>
-                                        <div class="favorite favorite_left"></div>
-                                        @if (item.SeoKeyword != null)
-                                        {
-                                            <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center"><span>@item.SeoKeyword</span></div>
-                                        }
-                                        <div class="product_info">
-                                            <h6 class="product_name"><a href="single.html">@item.Title</a></h6>
-                                            <div class="product_price">@string.Format(new System.Globalization.CultureInfo("vi-VN",false), "{0:c0}", item.PriceSale)<span>@string.Format(new System.Globalization.CultureInfo("vi-VN",false), "{0:c0}", item.Price)</span></div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <div class="red_button add_to_cart_button btnAddToCart" data-id="@item.Id"><a href="#">Thêm vào giỏ hàng</a></div>
-                            </div>
-                    }
-                </div>
+                                    </a>
+                                    <div class="red_button add_to_cart_button btnAddToCart" data-id="@item.Id"><a href="#">Thêm vào giỏ hàng</a></div>
+                                </div>
+                            }
+                        }
+                    </div>
             </div>
         </div>
     </div>

@@ -7,7 +7,6 @@
     var connect = dbContext.Database.GetDbConnection();
     var dbname = connect.Database;
     var can_connect = dbContext.Database.CanConnect();
-
 }
 
 <h1>Thông tin về cơ sở dữ liệu</h1>
@@ -54,6 +53,5 @@
     </ul>
 
     <a class="btn btn-danger" asp-action="DeleteDb" asp-controller="DbManager" asp-area="Admins" >Xóa Databse: @dbname</a>
-
     <a class="btn btn-danger" asp-action="SeedData" asp-controller="DbManager" asp-area="Admins">Seed Data</a>
 }

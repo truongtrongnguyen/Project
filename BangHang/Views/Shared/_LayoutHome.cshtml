@@ -14,6 +14,14 @@
 <link rel="stylesheet" type="text/css" href="~/lib/menu/plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
 <link rel="stylesheet" type="text/css" href="~/lib/menu/plugins/OwlCarousel2-2.2.1/animate.css">
 
+	<link rel="stylesheet" type="text/css" href="~/lib/menu/plugins/jquery-ui-1.12.1.custom/jquery-ui.css">
+	<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_styles.css">
+
+	<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/single_responsive.css">
+
+	<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
+	<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
 
 </head>
 
@@ -32,13 +40,8 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- Main Navigation -->
-@*			@RenderSection("MenuTop", false)*@
 			<partial name="_PartialMenuTop" model="@ViewBag.categoryTop" ></partial>
 		</header>
-
-			<!-- Hamburger Menu -->
 
 		<div class="fs_menu_overlay"></div>
 
@@ -144,22 +147,25 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				@*<div class="row">
 					<div class="col-lg-12">
 						<div class="footer_nav_container">
 							<div class="cr">©2018 All Rights Reserverd. Made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a> &amp; distributed by <a href="https://themewagon.com">ThemeWagon</a></div>
 						</div>
 					</div>
-				</div>
+				</div>*@
 			</div>
 		</footer>
-
 	</div>
-
-
 </body>
 
+<script src="~/lib/menu/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+<script src="~/lib/menu/js/single_custom.js"></script>
 
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
 
 <script src="~/lib/menu/js/jquery-3.2.1.min.js"></script>
 <script src="~/lib/menu/styles/bootstrap4/popper.js"></script>
@@ -169,9 +175,6 @@
 <script src="~/lib/menu/plugins/easing/easing.js"></script>
 <script src="~/lib/menu/js/custom.js"></script>
 <script src="~/lib/menu/js/shoppingCart.js"></script>
-
-<script src="~/lib/menu/plugins/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-<script src="~/lib/menu/js/single_custom.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
 </html>

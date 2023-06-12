@@ -8,135 +8,122 @@
     var result = await _authorizationService.AuthorizeAsync(this.User, "ViewAdminManager");
 }
 
-<link href="~/lib/menu/dist/css/users_profile.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="~/lib/menu/styles/responsive.css">
-<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
+@if(Model is not null)
+{
+    <div class="container rounded bg-white mt-50 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-5" width="150px" src="/Contents/@ViewBag.folderImage/@Model.Image" alt="Ảnh không tồn tại">
+                    <h5 class="font-weight-bold mt-4">@Model.FullName</h5>
+                    <span class="text-black-50">@Model.Email</span><span> </span>
+                    @if (result.Succeeded)
+                    {
+                        <span class="text-black-50 mt-2"><b>Chức vụ: Admin</b></span>
 
-
-
-<div class="container rounded bg-white mt-50 mb-5">
-    <div class="row">
-        <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="/Contents/@ViewBag.folderImage/@Model.Image" alt="Ảnh không tồn tại">
-                <h5 class="font-weight-bold mt-4">@Model.FullName</h5>
-                <span class="text-black-50">@Model.Email</span><span> </span>
-                @if(result.Succeeded)
-                {
-                    <span class="text-black-50 mt-2"><b>Chức vụ: Admin</b></span>
-
-                    <span> </span>
-                    <a class="border px-1 p-2 add-experience mt-2 " asp-action="Statistical" asp-controller="Accounts" asp-area="Admins">
-                        Quản lí Shop
-                    </a>
-                }
-               
-
-                <a class="border px-1 p-2 add-experience mt-2 " asp-action="Logout" asp-controller="User" asp-area="Users">
-                    Đăng xuất
-                </a><br />
-
+                        <span> </span>
+                        <a class="border px-1 p-2 add-experience mt-2 " asp-action="Statistical" asp-controller="Accounts" asp-area="Admins">
+                            Quản lí Shop
+                        </a>
+                    }
+                    <a class="border px-1 p-2 add-experience mt-2 " asp-action="Logout" asp-controller="User" asp-area="Users">
+                        Đăng xuất
+                    </a><br />
+                </div>
             </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
 
-                
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Thông tin tài khoản</h4>
+                    </div>
 
-        </div>
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
+                    <div class="form-group">
+                        <label>Họ tên</label>
+                        <p class="form-control">@Model.FullName</p>
+                    </div>
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Thông tin tài khoản</h4>
-                </div>
-
-                <div class="form-group">
-                    <label>Họ tên</label>
-                    <p class="form-control">@Model.FullName</p>
-                </div>
-
-                <div class="row mt-2">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Ngày tháng năm sinh</label>
-                            <p class="form-control">@Model.BirthDay.ToShortDateString()</p>
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Ngày tháng năm sinh</label>
+                                <p class="form-control">@Model.BirthDay.ToShortDateString()</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Giới tính</label>
+                                <p class="form-control">@Model.Sex</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Giới tính</label>
-                            <p class="form-control">@Model.Sex</p>
+
+
+                    <div class="row mt-3">
+                        <div class="form-group col-md-12 mb-1">
+                            <label>Số điện thoại</label>
+                            <p class="form-control">@Model.PhoneNumber</p>
                         </div>
+
+                        <div class="form-group col-md-12  mb-1">
+                            <label>Email</label>
+                            <p class="form-control">@Model.Email</p>
+                        </div>
+
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>Xác nhận tài khoản</label>
+                                <p class="form-control">@(Model.EmailConfirm == true ? "Đã xác nhận" : "Chưa xác nhận")</p>
+                            </div>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label>Số đơn hàng đã mua: @Model.OrderCount</label>
+                                <a asp-action="DetailOrderUser" asp-controller="User" asp-area="Users" class="btn btn-secondary">Xem chi tiết </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 text-center">
+                        <a asp-controller="Menu" asp-action="Index" asp-area="Menus" class="btn btn-primary mr-5">Về trang chủ</a>
+                        <a asp-action="Edit" asp-controller="Users" class="btn profile-button">Chỉnh sửa thông tin</a>
                     </div>
                 </div>
-
-
-                <div class="row mt-3">
-                    <div class="form-group col-md-12 mb-1">
-                        <label>Số điện thoại</label>
-                        <p class="form-control">@Model.PhoneNumber</p>
-                    </div>
-
-                    <div class="form-group col-md-12  mb-1">
-                        <label>Email</label>
-                        <p class="form-control">@Model.Email</p>
-                    </div>
-
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label>Xác nhận tài khoản</label>
-                            <p class="form-control">@(Model.EmailConfirm == true ? "Đã xác nhận" : "Chưa xác nhận")</p>
-                        </div>
-                    </div>
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label>Số đơn hàng đã mua: @Model.OrderCount</label>
-                            <a asp-action="DetailOrderUser" asp-controller="User" asp-area="Users" class="btn btn-secondary">Xem chi tiết </a>
-                        </div>
-                    </div>
-                  
-                </div>
-             
-                <div class="mt-5 text-center">
-                    <a asp-controller="Menu" asp-action="Index"  asp-area="Menus" class="btn btn-primary mr-5" >Về trang chủ</a>
-                    <a asp-action="Edit" asp-controller="Users" class="btn profile-button" >Chỉnh sửa thông tin</a>
-                    </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience">
-                    <span>Địa chỉ</span>
-                    <button data-id="3511bbfb-4e8f-4919-ac0d-6602e8a8a2f9" class="border px-3 p-1 add-experience btnCapNhat ">
-                        <i class="fa fa-plus"></i>&nbsp;Đổi địa chỉ
-                    </button>
-                </div><br>
-              
-                <div class="form-group">
-                    <label>Thành phố</label>
-                    <p class="form-control" id="data-City">@Model.City</p>
-                </div>
+            <div class="col-md-4">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center experience">
+                        <span>Địa chỉ</span>
+                        <button data-id="3511bbfb-4e8f-4919-ac0d-6602e8a8a2f9" class="border px-3 p-1 add-experience btnCapNhat ">
+                            <i class="fa fa-plus"></i>&nbsp;Đổi địa chỉ
+                        </button>
+                    </div><br>
 
-                <div class="form-group">
-                    <label>Quận/Huyện</label>
-                    <p class="form-control" id="data-Distric" >@Model.Distric</p>
-                </div>
+                    <div class="form-group">
+                        <label>Thành phố</label>
+                        <p class="form-control" id="data-City">@Model.City</p>
+                    </div>
 
-                <div class="form-group">
-                    <label>Phường/Xã</label>
-                    <p class="form-control" id="data-Ward">@Model.Wrad</p>
-                </div>
+                    <div class="form-group">
+                        <label>Quận/Huyện</label>
+                        <p class="form-control" id="data-Distric">@Model.Distric</p>
+                    </div>
 
-                <div class="form-group">
-                    <label>Số nhà/Đường</label>
-                    <p class="form-control" id="data-AddressDetails">@Model.AddressDetails</p>
-                </div>
+                    <div class="form-group">
+                        <label>Phường/Xã</label>
+                        <p class="form-control" id="data-Ward">@Model.Wrad</p>
+                    </div>
 
+                    <div class="form-group">
+                        <label>Số nhà/Đường</label>
+                        <p class="form-control" id="data-AddressDetails">@Model.AddressDetails</p>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-
-
+}
 
 
 <div class="modal fade" id="modal-default">

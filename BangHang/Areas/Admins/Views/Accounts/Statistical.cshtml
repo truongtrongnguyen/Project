@@ -2,11 +2,8 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<!-- jQuery -->
-<script src="~/lib/client/plugins/jquery/jquery.min.js"></script>
 <!-- ChartJS -->
 <script src="~/lib/client/plugins/chart.js/Chart.min.js"></script>
-
 
 @section naviheader{
     <ul class="navbar-nav">
@@ -16,50 +13,43 @@
         <li class="nav-item d-none d-sm-inline-block">
             <a asp-action="Index" asp-controller="Home" class="nav-link">Trang chủ</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Bài viết</a>
-        </li>
-        <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Thêm mới</a>
-        </li>
+      
     </ul>
 }
 
 
-
-<section class="content-header">
-    <div class="container-fluid">
-        <div class="row mb-2">
-            <div class="col-sm-6">
-                <h1>Thêm mới bài viết</h1>
-            </div>
-            <div class="col-sm-6">
-                <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Thêm mới</li>
-                </ol>
-            </div>
-        </div>
-    </div><!-- /.container-fluid -->
-</section>
-
-
 <section class="content">
-
     <!-- Default box -->
     <div class="card">
-
         <div class="card-body">
             <div class="bs-stepper-content">
-
                 <div class="col-md-12">
-
                     <div class="card ">
                         <div class="card-header">
-                            <h3 class="card-title">Biểu đồ doanh thu từng ngày</h3><br />
-                          
-                      
-
+                            <h4 class="card-title"><b>Biểu đồ doanh thu:</b></h4><br />
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="input-group col-md-6">
+                                       
+                                       @* <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                                        </div>*@
+                                        <div> <input type="text" class="form-control float-right" id="reservationtime"></div>
+                                        <div> <button type="button" id="thongke" class="btn btn-primary ml-4">Thống kê</button></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                      
+                                        <input type="radio" id="statisticalDay" name="fav_language" checked="">
+                                        <label >Theo ngày</label><br>
+                                        <input type="radio" id="statisticalMonth" name="fav_language">
+                                        <label >Theo tháng</label><br>
+                                        <input type="radio" id="statisticalYear" name="fav_language">
+                                        <label >Theo năm</label>
+                                    </div>
+                                </div>
+                               
+                                <!-- /.input group -->
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="chart">
@@ -88,106 +78,27 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <!-- /.card-body -->
-    <div class="card-footer">
-    </div>
-    <!-- /.card-footer-->
-    <!-- /.card -->
 </section>
 
+
+
+
 <script src="~/lib/client/plugins/moment/moment.min.js"></script>
-@section Scripts{
+<script src="~/lib/client/plugins/moment/statistical.js"></script>
 
-    <script>
-        $(function () {
+<script src="~/lib/client/plugins/select2/js/select2.full.min.js"></script>
 
-            var arrDate = [];
-            var arrDoanhThu = [];
-            var arrLoiNhuan = [];
+<script src="~/lib/client/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="~/lib/client/plugins/daterangepicker/daterangepicker.js"></script>
 
-            $.ajax({
-                url: '/Account/GetStatistical',
-                data: {},
-                type: 'GET',
-                success: function (rs) {
-                    $.each(rs.result, function (i, item) {
-                        arrDate.push(item.date);
-                        arrDoanhThu.push(item.doanhThu);
-                        arrLoiNhuan.push(item.loiNhuan);
+<script src="~/lib/client/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
 
-                    })
+<script>
 
-                    var areaChartData = {
-                        labels: arrDate,
-                        datasets: [
-                            {
-                                label: 'Lợi nhuận',
-                                backgroundColor: 'rgba(60,141,188,0.9)',
-                                borderColor: 'rgba(60,141,188,0.8)',
-                                pointRadius: false,
-                                pointColor: '#3b8bba',
-                                pointStrokeColor: 'rgba(60,141,188,1)',
-                                pointHighlightFill: '#fff',
-                                pointHighlightStroke: 'rgba(60,141,188,1)',
-                                data: arrLoiNhuan
-                            },
-                            {
-                                label: 'Danh thu',
-                                backgroundColor: 'rgba(210, 214, 222, 1)',
-                                borderColor: 'rgba(210, 214, 222, 1)',
-                                pointRadius: false,
-                                pointColor: 'rgba(210, 214, 222, 1)',
-                                pointStrokeColor: '#c1c7d1',
-                                pointHighlightFill: '#fff',
-                                pointHighlightStroke: 'rgba(220,220,220,1)',
-                                data: arrDoanhThu
-                            },
-                        ]
-                    }
-
-                    //-------------
-                    var barChartCanvas = $('#barChart').get(0).getContext('2d')
-                    var barChartData = $.extend(true, {}, areaChartData)
-                    var temp0 = areaChartData.datasets[0]
-                    var temp1 = areaChartData.datasets[1]
-                    barChartData.datasets[0] = temp1
-                    barChartData.datasets[1] = temp0
-
-                    var barChartOptions = {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        datasetFill: false
-                    }
-
-                    new Chart(barChartCanvas, {
-                        type: 'bar',
-                        data: barChartData,
-                        options: barChartOptions
-                    })
-
-                    load_data(rs.result)
-                }
-            });
-        })
-
-        function load_data(data) {
-            var html = "";
-            $.each(data, function (i, item) {
-                html += "<tr>";
-                html += "<td>" + (i + 1) + "</td>";
-                html += "<td>" + (item.date) + "</td>";
-                html += "<td>" + (item.doanhThu) + "</td>";
-                html += "<td>" + (item.loiNhuan) + "</td>";
-                html += "</tr>";
-            });
-            $('#load_data').html(html);
-        }
-
-    </script>
-
-}
+</script>
