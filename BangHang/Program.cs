@@ -1,23 +1,21 @@
 ﻿using BangHang.Models;
 using BangHang.Models.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddDistributedMemoryCache();  
+
 builder.Services.AddSession(cfg =>
 {  // Đăng ký dịch vụ Session
     cfg.Cookie.Name = "truongtrongnguyen";   
     cfg.IdleTimeout = new TimeSpan(0, 30, 0);   
 });
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
-
 
 builder.Services.AddTransient<CartService>();
 

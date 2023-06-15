@@ -13,10 +13,7 @@
         @await Component.InvokeAsync("App.Components.CategoryProduct", ViewBag.CategoryPro)
     }
     @section NewArrivals {
-        @await Component.InvokeAsync("App.Components.NewArrivals",new NewArrivalsData() {
-            CategoryPro = ViewBag.CategoryPro,
-            Products = ViewBag.Products
-        })
+    @await Component.InvokeAsync("App.Components.NewArrivals", ViewBag.Products)
     }
     @section PostOutstanding {
         @await Component.InvokeAsync("App.Components.PostOutstanding", ViewBag.postOutstanding)

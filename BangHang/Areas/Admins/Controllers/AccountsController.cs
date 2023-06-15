@@ -72,24 +72,25 @@ namespace BangHang.Areas.Admin.Controllers
                         on order.Id equals orderDetails.OrderID
                         join product in _context.Products
                         on orderDetails.ProductID equals product.Id
-                        where order.DateCreate >= dateStart && order.DateCreate <= dateEnd
+                        where (order.DateCreate.Value.Day >= dateStart.Day && order.DateCreate.Value.Day <= dateEnd.Day)
+                         && (order.DateCreate.Value.Month >= dateStart.Month && order.DateCreate.Value.Month <= dateEnd.Month)
+                         && (order.DateCreate.Value.Year >= dateStart.Year && order.DateCreate.Value.Year <= dateEnd.Year)
                         orderby order.DateCreate
                         select new
                         {
                             CreateDate = order.DateCreate,
                             Quantity = orderDetails.Quantity,
-                            Price = orderDetails.Price,
+                            Price = orderDetails.PriceSale > 0 ? orderDetails.PriceSale : orderDetails.Price,
                             OriginalPrice = product.originalPrice
                         };
 
             var result = query.ToList().GroupBy(x => x.CreateDate.GetValueOrDefault().ToString("dd/MM/yyyy"))
-                            .Select(x => new
-                            {   
+                            .Select (x => new
+                            {
                                 Date = x.Key.ToString(),
                                 TotalBuy = x.Sum(xx => xx.OriginalPrice * xx.Quantity),
                                 TotalSel = x.Sum(xx => xx.Price * xx.Quantity)
-                            })
-                            .Select(x => new
+                            }).Select(x => new
                             {
                                 Date = x.Date,
                                 LoiNhuan = x.TotalSel - x.TotalBuy,
@@ -119,7 +120,7 @@ namespace BangHang.Areas.Admin.Controllers
                         {
                             CreateDate = order.DateCreate,
                             Quantity = orderDetails.Quantity,
-                            Price = orderDetails.Price,
+                            Price = orderDetails.PriceSale > 0 ? orderDetails.PriceSale : orderDetails.Price,
                             OriginalPrice = product.originalPrice
                         };
 
@@ -160,7 +161,7 @@ namespace BangHang.Areas.Admin.Controllers
                         {
                             CreateDate = order.DateCreate,
                             Quantity = orderDetails.Quantity,
-                            Price = orderDetails.Price,
+                            Price = orderDetails.PriceSale > 0 ? orderDetails.PriceSale : orderDetails.Price,
                             OriginalPrice = product.originalPrice
                         };
 

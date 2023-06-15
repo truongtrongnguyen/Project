@@ -7,152 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Uploads\images\banner_1.jpg" />
-    <None Remove="Uploads\images\banner_2.jpg" />
-    <None Remove="Uploads\images\banner_3.jpg" />
-    <None Remove="Uploads\images\blog_1.jpg" />
-    <None Remove="Uploads\images\blog_2.jpg" />
-    <None Remove="Uploads\images\blog_3.jpg" />
-    <None Remove="Uploads\images\deal_ofthe_week.png" />
-    <None Remove="Uploads\images\desc_1.jpg" />
-    <None Remove="Uploads\images\desc_2.jpg" />
-    <None Remove="Uploads\images\desc_3.jpg" />
-    <None Remove="Uploads\images\map_marker.png" />
-    <None Remove="Uploads\images\product_1.png" />
-    <None Remove="Uploads\images\product_10.png" />
-    <None Remove="Uploads\images\product_2.png" />
-    <None Remove="Uploads\images\product_3.png" />
-    <None Remove="Uploads\images\product_4.png" />
-    <None Remove="Uploads\images\product_5.png" />
-    <None Remove="Uploads\images\product_6.png" />
-    <None Remove="Uploads\images\product_7.png" />
-    <None Remove="Uploads\images\product_8.png" />
-    <None Remove="Uploads\images\product_9.png" />
-    <None Remove="Uploads\images\single_1.jpg" />
-    <None Remove="Uploads\images\single_1_thumb.jpg" />
-    <None Remove="Uploads\images\single_2.jpg" />
-    <None Remove="Uploads\images\single_2_thumb.jpg" />
-    <None Remove="Uploads\images\single_3.jpg" />
-    <None Remove="Uploads\images\single_3_thumb.jpg" />
-    <None Remove="Uploads\images\slider_1.jpg" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Uploads\images\banner_1.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\banner_2.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\banner_3.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\blog_1.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\blog_2.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\blog_3.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\deal_ofthe_week.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\desc_1.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\desc_2.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\desc_3.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\map_marker.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_1.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_10.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_2.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_3.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_4.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_5.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_6.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_7.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_8.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\product_9.png">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\single_1.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\single_1_thumb.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\single_2.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\single_2_thumb.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\single_3.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\single_3_thumb.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Include="Uploads\images\slider_1.jpg">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Areas\Admins\Data\" />
     <Folder Include="Areas\Admins\Models\" />
     <Folder Include="Areas\Blog\Data\" />
@@ -191,5 +45,11 @@
     <PackageReference Include="MimeKit" Version="3.6.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Uploads\**">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
 
 </Project>

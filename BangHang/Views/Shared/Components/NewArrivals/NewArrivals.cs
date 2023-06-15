@@ -6,14 +6,9 @@ namespace App.Components
     [ViewComponent]
     public class NewArrivals : ViewComponent
     {
-        public class NewArrivalsData
+        public IViewComponentResult Invoke(List<Products>? Products)
         {
-            public List<CategoryPro>? CategoryPro { get; set; }
-            public List<Products>? Products { get; set; }
-        }
-        public IViewComponentResult Invoke(NewArrivalsData newArrivalsData)
-        {
-            return View(newArrivalsData);
+            return View(Products);
         }
     }
 }

@@ -137,6 +137,10 @@
                                  <p>@Model.DesCriptions</p>
                             </div>
 
+                           
+                            <div class="tab_text_block">
+                                <p>@Html.Raw(Model.Contents)</p>
+                            </div>
                             @if (Model.ProductPhoto?.Count > 0)
                             {
                                 <div class="row col-sm-12" id="ImageCurrent">
@@ -149,10 +153,6 @@
                                     }
                                 </div>
                             }
-                            <div class="tab_text_block">
-                                <h2>Chi tiết</h2>
-                                <p>@Html.Raw(Model.Contents)</p>
-                            </div>
                         </div>
 
                     </div>

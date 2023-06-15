@@ -74,7 +74,7 @@ namespace BangHang.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int?>("OrdersCount")
+                    b.Property<int>("OrdersCount")
                         .HasColumnType("int");
 
                     b.Property<string>("PasswordHash")

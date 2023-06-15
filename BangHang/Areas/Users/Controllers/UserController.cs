@@ -43,7 +43,7 @@ namespace BangHang.Areas.Users.Controllers
                 Sex = user.Sex,
                 BirthDay = user.BirthDay.GetValueOrDefault(),
                 Image = user.Avata,
-                OrderCount = user.OrdersCount.GetValueOrDefault(),
+                OrderCount = user.OrdersCount,
                 City = user.City,
                 Distric = user.District,
                 Wrad = user.Ward,

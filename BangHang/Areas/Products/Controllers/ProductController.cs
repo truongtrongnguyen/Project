@@ -27,6 +27,7 @@ namespace BangHang.Areas.Controllers
                 .Include(p => p.ProductPhoto)
                 .Include(p => p.ProductCategory)
                 .ThenInclude(p => p.Category)
+                .OrderByDescending(p => p.DateCreate)
                 .ToList();
             ViewBag.folderImage = folderImage;
             return View(products);
@@ -76,7 +77,8 @@ namespace BangHang.Areas.Controllers
                     SeoTitle = productModel.SeoTitle,
                     SeoKeyword = productModel.SeoKeyword,
                     SeoDesCriptions = productModel.SeoDesCriptions,
-                    Sold = productModel.Sold
+                    Sold = productModel.Sold,
+                    originalPrice = productModel.originalPrice
 
                 };
                 if(productModel.ProductFiles != null)
@@ -145,7 +147,8 @@ namespace BangHang.Areas.Controllers
                     SeoDesCriptions = product.SeoDesCriptions,
                     ProductPhoto = product.ProductPhoto,
                     CategoryIDs = product.ProductCategory.Select(c => c.Category.Id.GetValueOrDefault()).ToList(),
-                    Sold = product.Sold
+                    Sold = product.Sold,
+                    originalPrice = product.originalPrice
                 };
                  
                 ViewBag.CategoryPro = LoadCategory();
@@ -236,6 +239,7 @@ namespace BangHang.Areas.Controllers
                     product.SeoDesCriptions = productModel.SeoDesCriptions;
                     product.Sold = productModel.Sold;
                     product.DateUpdate = DateTime.Now;
+                    product.originalPrice = productModel.originalPrice;
                 }
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();

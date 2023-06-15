@@ -18,44 +18,14 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-header">Chức năng</li>
 
-            
-
             <li class="nav-item">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                <a asp-action="Statistical" asp-controller="Accounts" asp-area="Admins" class="nav-link">
+                    <i class="nav-icon fas fa-th"></i>
                     <p>
                         Thống kê
-                        <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <a asp-action="Statistical" asp-controller="Accounts" asp-area="Admins" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                Theo thời gian
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-action="StatisticalMonth" asp-controller="Accounts" asp-area="Admins" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                Theo tháng
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-action="Statistical" asp-controller="Accounts" asp-area="Admins" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>
-                                Theo năm
-                            </p>
-                        </a>
-                    </li>
-                </ul>
             </li>
-
 
             <li class="nav-item">
                 <a asp-action="Index" asp-controller="Accounts" asp-area="Admins" class="nav-link">

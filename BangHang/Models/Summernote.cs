@@ -9,7 +9,7 @@
         }
         public string IDEditor { get; set; }
         public bool LoadLibrary { get; set; }
-        public int height { get; set; } = 120;
+        public int height { get; set; } = 400;
         public string toolbar { get; set; } = @"
          [
           ['style', ['style']],

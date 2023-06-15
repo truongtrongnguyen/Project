@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using BangHang.Areas.Models.SendMail;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Primitives;
 
 namespace BangHang.Areas.OrderProducts.Controllers
 {
@@ -25,7 +24,8 @@ namespace BangHang.Areas.OrderProducts.Controllers
                                         CartService cartService,
                                         IEmailSender emialSender,
                                         IOptions<MailSetting> mailSetting,
-                                        UserManager<AppUser> userManager)
+                                        UserManager<AppUser> userManager
+                                        )
         {
             _context = context;
             _cartService = cartService;
@@ -34,7 +34,7 @@ namespace BangHang.Areas.OrderProducts.Controllers
             _userManager = userManager;
         }
 
-         [HttpGet]
+        [HttpGet]
         [HttpPost]
         public IActionResult Index([FromQuery(Name = "p")] int currentPage, int pageSize)
         {
@@ -71,7 +71,7 @@ namespace BangHang.Areas.OrderProducts.Controllers
                         .Where(c => c.Id == id)
                         .Include(c => c.OrderDetails)
                         .FirstOrDefault();
-            if(order != null)
+            if (order != null)
             {
                 return View(order);
             }
@@ -87,9 +87,7 @@ namespace BangHang.Areas.OrderProducts.Controllers
             foreach (var item in cartItems)
             {
                 var cart = _context.Products?
-                            .Include(p => p.ProductPhoto)?
-                            .Include(p => p.ProductCategory)
-                            .ThenInclude(pc => pc.Category)
+                            .Include(p => p.ProductPhoto)
                             .FirstOrDefault(p => p.Id == item.ProductId);
 
                 cartItemsList.Add(new CartItemModel()
@@ -106,7 +104,17 @@ namespace BangHang.Areas.OrderProducts.Controllers
                 {
                     total += cart.Price.GetValueOrDefault() * item.quantity.GetValueOrDefault();
                 }
+
+                // Save Session
+                item.NameProduct = cart.Title;
+                item.Price = cart.Price;
+                item.PriceSale = cart.PriceSale;
+                item.Color = cart.Color;
+                item.TypeProduct = cart.TypeProduct;
+                item.ImageAvata = cart.ProductPhoto.Select(x => x.Name).First();
             }
+            _cartService.SaveCartSession(cartItems);
+
             var order = new Order();
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user != null)
@@ -119,35 +127,17 @@ namespace BangHang.Areas.OrderProducts.Controllers
 
             ViewBag.TotalAmount = total;
             ViewBag.cartItems = cartItemsList;
+            ViewBag.date = cartItemsList;
             return View(order);
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Order orderModel)
         {
-
             var cartItems = _cartService.GetCartItems();
 
             if (ModelState.IsValid && cartItems?.Count > 0)
             {
-                // Do CartItems lưu trên Section chỉ lưu số lượng và Id sản phẩm nên ta phải tìm các sản phẩm đó lại convert thành list 
-                // để thêm vào OrderDetail
-                List<CartItemModel> cartItemsList = new List<CartItemModel>();
-                foreach (var item in cartItems)
-                {
-                    var cart = _context.Products
-                                .Include(p => p.ProductPhoto)
-                                .Include(p => p.ProductCategory)
-                                .ThenInclude(pc => pc.Category)
-                                .Where(p => p.Id == item.ProductId)
-                                .FirstOrDefault();
-                    cartItemsList.Add(new CartItemModel()
-                    {
-                        Product = cart,
-                        quantity = item.quantity
-                    });
-                }
-
                 // Tạo đơn hàng
                 Order order = new Order()
                 {
@@ -165,29 +155,29 @@ namespace BangHang.Areas.OrderProducts.Controllers
                             + DateTime.Now.Minute.ToString()
                             + DateTime.Now.Second.ToString()
                 };
-                await _context.SaveChangesAsync();
 
                 // creata orderdetails
                 var orderDetails = new List<OrderDetail>();
-                foreach (var item in cartItemsList)
+
+                foreach (var item in cartItems)
                 {
                     orderDetails.Add(new OrderDetail()
                     {
                         Order = order,
-                        Product = item.Product,
-                        Price = item.Product.Price,
-                        PriceSale = item.Product.PriceSale,
+                        ProductID = item.ProductId,
+                        Price = item.Price,
+                        PriceSale = item.PriceSale,
                         Quantity = item.quantity,
-                        NameProduct = item.Product.Title,
-                        ImageAvata = item.Product.ProductPhoto.Select(c => c.Name).FirstOrDefault(),
-                        TypeProduct = item.Product.TypeProduct,
-                        Color = item.Product.Color,
-                        CreateDate = order.DateCreate
+                        NameProduct = item.NameProduct,
+                        ImageAvata = item.ImageAvata,
+                        TypeProduct = item.TypeProduct,
+                        Color = item.Color,
+                        CreateDate = order.DateCreate,
+                        
                     });
                 }
-                _context.OrderDetails.AddRange(orderDetails);
-                _emailSender.SendEmailAsync(_mailSetting.Email, $"Đơn hàng từ {order.CustomerName}", SendMailAdmin.SendEMailAdmin(order, orderDetails));
-                _emailSender.SendEmailAsync(order.Email, $"Bạm vừa đặt hàng thành công", SendMailAdmin.SendEMailClient(order, orderDetails));
+
+                await _context.OrderDetails.AddRangeAsync(orderDetails);
 
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 if (user != null)
@@ -197,7 +187,12 @@ namespace BangHang.Areas.OrderProducts.Controllers
                 }
 
                 await _context.SaveChangesAsync();
+
+                await _emailSender.SendEmailAsync(_mailSetting.Email, $"Đơn hàng từ {order.CustomerName}", SendMailAdmin.SendEMailAdmin(order, orderDetails));
+                await _emailSender.SendEmailAsync(order.Email, $"Bạm vừa đặt hàng thành công", SendMailAdmin.SendEMailClient(order, orderDetails));
+
                 _cartService.CLearCart();
+
                 return RedirectToAction("OrderSuccess", "Menu");
             }
 
@@ -205,10 +200,10 @@ namespace BangHang.Areas.OrderProducts.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdatePayment (int id, int trangthai)
+        public IActionResult UpdatePayment(int id, int trangthai)
         {
             var order = _context.Orders.Find(id);
-            if(order != null)
+            if (order != null)
             {
                 order.Payment = trangthai;
                 _context.SaveChanges();

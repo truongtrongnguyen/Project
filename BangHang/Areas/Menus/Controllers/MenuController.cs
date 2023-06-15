@@ -19,9 +19,14 @@ namespace BangHang.Areas.Menus.Controllers
             _context = context;
             cartService = cartservice;
         }
+        [HttpGet]
+        public IActionResult ShoppingGuide()
+        {
+            return View();
+        }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
 
             // Post Sale IsActive
@@ -32,17 +37,21 @@ namespace BangHang.Areas.Menus.Controllers
 
             // Category Product
             var categoryPro = _context.CategoriesPro
-                            .Where(c => c.IsActive == true)    
-                            .Take(6)
+                            .Where(c => c.IsActive == true)
+                           .Take(6)
                             .ToList();
             ViewBag.CategoryPro = categoryPro;
-            
+
             var Products = _context.Products
                                     .Include(p => p.ProductPhoto)
-                                    .Include( p => p.ProductCategory)
+                                    .Include(p => p.ProductCategory)
                                     .ThenInclude(pc => pc.Category)
                                      .Where(c => c.IsActive == true)
+                                      .Take(20)
+                                      .OrderByDescending(x => x.DateCreate)
                                     .ToList();
+
+
             ViewBag.Products = Products;
 
             // Post nổi bậc
@@ -53,6 +62,7 @@ namespace BangHang.Areas.Menus.Controllers
             var productIsSale = _context.Products
                                  .Include(p => p.ProductPhoto)
                                   .Where(p => p.IsSale)
+                                  .Take(20)
                                   .ToList();
             ViewBag.productIsSale = productIsSale;
 
@@ -61,7 +71,7 @@ namespace BangHang.Areas.Menus.Controllers
                     .Where(p => p.IsActive == false && p.IsHot == false)
                     
                      .OrderByDescending(x => x.DateCreate)
-					 .Take(3)
+					 .Take(6)
 					.ToList();
             ViewBag.Blog = blog;
 
@@ -71,9 +81,6 @@ namespace BangHang.Areas.Menus.Controllers
         [HttpGet]
         public async Task<IActionResult> Categories(string? slug)
         {
-            // Category Post
-            var categoryTop = _context.Categories.ToList();
-            ViewBag.categoryTop = categoryTop;
 
             // Category Product
             var categoryPro = _context.CategoriesPro
@@ -84,21 +91,23 @@ namespace BangHang.Areas.Menus.Controllers
             CategoryPro categoryslug = null;
             if (!String.IsNullOrEmpty(slug))
             {
-                categoryslug = _context.CategoriesPro
+                categoryslug = await _context.CategoriesPro
                                     .Where(c => c.Slug == slug)
-                                    .FirstOrDefault();
-                if (categoryslug != null)
-                {
-                    var products = _context.Products
-                               .Include(p => p.ProductPhoto)
-                               .Include(p => p.ProductCategory)
-                               .ToList()
-                               .Where(p => p.ProductCategory.Select(c => c.CategoryID).Contains(categoryslug.Id)).ToList();
-                    ViewBag.products = products;
-                    return View(categoryslug);
-                }
+                                    .FirstOrDefaultAsync();
             }
-            return View();
+            else
+            {
+                categoryslug = await _context.CategoriesPro
+                                    .FirstAsync();
+            }
+
+            var products = _context.Products
+                            .Include(p => p.ProductPhoto)
+                            .Include(p => p.ProductCategory)
+                            .ToList()
+                            .Where(p => p.ProductCategory.Select(c => c.CategoryID).Contains(categoryslug.Id)).ToList();
+            ViewBag.products = products;
+            return View(categoryslug);
         }
 
         [HttpGet]
@@ -130,7 +139,7 @@ namespace BangHang.Areas.Menus.Controllers
 
             var cartItems = cartService.GetCartItems();
             List<CartItemModel> cartItemsList = new List<CartItemModel>();
-            foreach(var item in cartItems)
+            foreach (var item in cartItems)
             {
                 var cart = _context.Products
                             .Include(p => p.ProductPhoto)
@@ -144,17 +153,22 @@ namespace BangHang.Areas.Menus.Controllers
                     quantity = item.quantity
                 });
             }
+
+
+
             return View(cartItemsList);
         }
+
 
         [HttpPost]
         public IActionResult AddCart(int productid, int quantity)
         {
             var product = _context.Products
-                .FirstOrDefault(p => p.Id == productid);
+               .FirstOrDefault(p => p.Id == productid);
+
             if (product == null) return NotFound();
 
-             List<CartItem> cart = cartService.GetCartItems();
+            List<CartItem> cart = cartService.GetCartItems();
             var cartitem = cart.Find(c => c.ProductId == productid);   // Tìm xem sản phẩm có tồn tại trong giỏ hàng hay chưa
             int count = 0;
             if (cartitem != null)
